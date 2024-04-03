@@ -13,5 +13,6 @@ class Logic
   //checkInput -> if inputPosition == sentence.charAt(inputPosition + 1?) rightKey() else wrongKey()
   //rightKey -> score += 1, char to green
   //wrongKey -> score -= 1, char to red
-  //endGame -> myStopWatch.Stop() -> display time elapsed myStopWatch.Elapsed + add points for under 3 minutes, prompts for initials, shows spot in leaderboard, isActive false
+  //endGame -> myStopWatch.Stop() -> display time elapsed myStopWatch.Elapsed + add points for under 3 minutes, prompts for initials, shows spot in leaderboard, Game.isActive false
+  //maybe create Map for Game attributes
 }
