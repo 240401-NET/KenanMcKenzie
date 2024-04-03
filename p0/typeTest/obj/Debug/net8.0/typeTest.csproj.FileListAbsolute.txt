@@ -1,0 +1,15 @@
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\bin\Debug\net8.0\typeTest.exe
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\bin\Debug\net8.0\typeTest.deps.json
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\bin\Debug\net8.0\typeTest.runtimeconfig.json
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\bin\Debug\net8.0\typeTest.dll
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\bin\Debug\net8.0\typeTest.pdb
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\typeTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\typeTest.AssemblyInfoInputs.cache
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\typeTest.AssemblyInfo.cs
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\typeTest.csproj.CoreCompileInputs.cache
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\typeTest.sourcelink.json
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\typeTest.dll
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\refint\typeTest.dll
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\typeTest.pdb
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\typeTest.genruntimeconfig.cache
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\ref\typeTest.dll
