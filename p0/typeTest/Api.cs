@@ -13,20 +13,19 @@ class Api
   //fetch quotes -> write to file
   public async Task GetText()
   {
-    var url = "https://baconipsum.com/api/?paras=5&type=meat-and-filler";
+    var url = "https://baconipsum.com/api/?type=meat-and-filler&sentences=50&format=text";
     try
     {
       var response = await httpClient.GetAsync(url);
-      Console.WriteLine("response: " + response);
       if (response.IsSuccessStatusCode)
       {
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        Console.WriteLine("jsonRes: " + jsonResponse); //-> ["Sentence", "Sentence"...]
+        // Console.WriteLine("jsonRes: " + jsonResponse); //-> ["Sentence", "Sentence"...]
         if (jsonResponse != null)
         {
           //write to file (name, content)
-          string quoteFileName = "quotes.json";
-          File.WriteAllText(quoteFileName, jsonResponse); //read and separate in Logic
+          string quoteFileName = "quotes.txt";
+          File.WriteAllText(quoteFileName, jsonResponse.ToString()); //read and separate in Logic
         }
       }
       else

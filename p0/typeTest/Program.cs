@@ -8,8 +8,10 @@ class Program
         using HttpClient client = new HttpClient();
         var api = new Api(client);
         await api.GetText();
+        Logic.GetQuotes();
         // Input.Type();
-        Logic.ReadNextChar();
+        // Logic.ReadNextChar();
+        // KeyInfo.Start();
     }
 
 }
