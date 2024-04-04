@@ -5,11 +5,12 @@ namespace typeTest;
 class Game
 {
   //need to do setters for initials and game clock to use no args constructor
-  private string Initials { get; set; } //3
+  public string Initials { get; set; } //3
   public int Score { get; set; }
-  private TimeSpan GameClock { get; set; } //gameClock.Elapsed.Seconds.ToString();
-  private bool IsActive { get; set; } //game started/ended
-  private DateTime GameDate { get; set; } //if not today, set to DateOnly
+  public TimeSpan GameClock { get; set; } //gameClock.Elapsed.Seconds.ToString();
+  public bool IsActive { get; set; } //game started/ended
+  public DateTime GameDate { get; set; } //if not today, set to DateOnly
+  public List<string> Quotes { get; set; }
 
   public Game() { }
 
@@ -18,7 +19,8 @@ class Game
     int Score,
     TimeSpan GameClock,
     bool IsActive,
-    DateTime GameDate
+    DateTime GameDate,
+    List<string> Quotes
   )
   {
     this.Initials = Initials;
@@ -26,6 +28,7 @@ class Game
     this.GameClock = GameClock;
     this.IsActive = IsActive;
     this.GameDate = GameDate;
+    this.Quotes = Quotes;
   }
 
 }

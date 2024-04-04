@@ -9,11 +9,12 @@ class Input
   //quit game-> hit esc
   public static void Type()
   {
+    //TODO: separate time
     do
     {
       var timer = new Stopwatch(); //move to 
       timer.Start();
-      ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+      ConsoleKeyInfo keyInfo = Console.ReadKey(true); //value
       Console.WriteLine($"Key: {keyInfo.KeyChar}");
       timer.Stop();
 
