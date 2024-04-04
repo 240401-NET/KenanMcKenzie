@@ -9,7 +9,7 @@ class Program
         var api = new Api(client);
         await api.GetText();
         // Input.Type();
-        Logic.StartGame();
+        Logic.ReadNextChar();
     }
 
 }
