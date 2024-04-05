@@ -1,4 +1,4 @@
-using System.Text.Json;
+using System.Text;
 using System;
 
 
@@ -44,8 +44,11 @@ class Logic
       string filePath = "quotes.txt";
       string quoteTxt = File.ReadAllText(filePath);
 
-      // string[] quotes = JsonSerializer.Deserialize<string[]>(jsonQuotes) ?? new string[0];
       string[] quotes = quoteTxt.Split(".").Select(sentence => sentence.Trim()).ToArray();
+      // foreach (string quote in quotes)
+      // {
+      //   Console.WriteLine("Quote: " + quote + "\n");
+      // }
 
       return quotes; //foreach trim double whitespaces to 1
     }
@@ -57,10 +60,42 @@ class Logic
   }
 
   //displayText -> deserialize from saved json, split into senetences, display 1 unused sentence at a time(maybe split into more methods)
-  // public static void Split(string[] quotes)
-  // {
-  //   quotes.Join(",")
-  // }
+  public static void DisplaySentence(string[] quotes)
+  {
+    //log the key pressed
+
+    int score = 0;
+    //loop through quotes -> convert each sentence to charArr.
+    //compare key pressed with char in charArr
+    for (int i = 0; i < quotes.Length; i++)
+    {
+      string builder = quotes[i];
+
+      Console.WriteLine(builder);
+
+
+
+      for (int j = 0; j < builder.Length; j++)
+      {
+        ConsoleKeyInfo keyPressed = Console.ReadKey(true);
+        char keyInfo = keyPressed.KeyChar;
+
+        if (keyInfo.Equals(builder[j]))
+        {
+          score++;
+          Console.ForegroundColor = ConsoleColor.Green;
+          Console.Write(keyInfo);
+        }
+        else
+        {
+          score--;
+          Console.ForegroundColor = ConsoleColor.Red;
+          Console.Write(keyInfo);
+
+        };
+      }
+    }
+  }
 
   //endOfSentence -> when input == split sentence.length..reset displayText and what the user has typed so far. (maybe don't display user text like typemonkey)
 
@@ -95,20 +130,38 @@ class Logic
     } while (true);
   }
   //rightKey -> score += 1, char to green
-  public void CorrectKey()
+  public static void CorrectKey(int score)
   {
-
+    Console.ForegroundColor = ConsoleColor.Green;
+    score++;
   }
   //wrongKey -> score -= 1, char to red
-  public void IncorrectKey()
+  public static void IncorrectKey(int score)
   {
-
+    Console.ForegroundColor = ConsoleColor.Red;
+    score--;
   }
   //revertScore -> if KeyChar is backspace, revert score
   //endGame -> myStopWatch.Stop() -> display time elapsed myStopWatch.Elapsed + add points for under 3 minutes, prompts for initials, shows spot in leaderboard, Game.isActive false
   public static void EndGame()
   {
 
+  }
+
+  //parent function to logic methods
+  public static void Run()
+  {
+    // string[] quotes = GetQuotes();
+    // ConsoleKey keyPressed;
+    // do
+    // {
+    //   ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+    //   keyPressed = keyInfo.Key;
+    //   DisplaySentence(quotes);
+    // }
+    // while (keyPressed != ConsoleKey.Escape);
+    string[] quotes = GetQuotes();
+    DisplaySentence(quotes);
   }
   //maybe create Map for Game attributes
 }
