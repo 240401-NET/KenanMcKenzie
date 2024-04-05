@@ -5,15 +5,19 @@ class Menu
   public static void PrintHeader()
   {
     string title = @"
-  ____    _    ____ ___  _   _   _______   ______  _____ 
- | __ )  / \  / ___/ _ \| \ | | |_   _\ \ / /  _ \| ____|
- |  _ \ / _ \| |  | | | |  \| |   | |  \ V /| |_) |  _|  
- | |_) / ___ \ |__| |_| | |\  |   | |   | | |  __/| |___ 
- |____/_/   \_\____\___/|_| \_|   |_|   |_| |_|   |_____|
-                                                         
+  _______   ________   ______   ______   ___   __        _________  __  __   ______   ______      
+/_______/\ /_______/\ /_____/\ /_____/\ /__/\ /__/\     /________/\/_/\/_/\ /_____/\ /_____/\     
+\::: _  \ \\::: _  \ \\:::__\/ \:::_ \ \\::\_\\  \ \    \__.::.__\/\ \ \ \ \\:::_ \ \\::::_\/_    
+ \::(_)  \/_\::(_)  \ \\:\ \  __\:\ \ \ \\:. `-\  \ \      \::\ \   \:\_\ \ \\:(_) \ \\:\/___/\   
+  \::  _  \ \\:: __  \ \\:\ \/_/\\:\ \ \ \\:. _    \ \      \::\ \   \::::_\/ \: ___\/ \::___\/_  
+   \::(_)  \ \\:.\ \  \ \\:\_\ \ \\:\_\ \ \\. \`-\  \ \      \::\ \    \::\ \  \ \ \    \:\____/\ 
+    \_______\/ \__\/\__\/ \_____\/ \_____\/ \__\/ \__\/       \__\/     \__\/   \_\/     \_____\/ 
+                                                                                                  
 ";
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.WriteLine(title);
+    Console.WriteLine("Esc = quit, Enter = start");
+    Console.ResetColor();
   }
 
 
@@ -26,8 +30,51 @@ class Menu
   }
 
   //TODO: Log and act on input
-  public static void PrintCommands()
+
+
+  public static void PrintCountDown()
   {
-    Console.WriteLine("Esc = quit, Enter = start");
+    string[] countdown = { @"
+██████  
+     ██ 
+ █████  
+     ██ 
+██████  
+        
+        
+", @"
+██████  
+     ██ 
+ █████  
+██      
+███████ 
+        
+        
+", @"
+ ██ 
+███ 
+ ██ 
+ ██ 
+ ██ 
+    
+    
+", @"
+ ██████   ██████  ██ 
+██       ██    ██ ██ 
+██   ███ ██    ██ ██ 
+██    ██ ██    ██    
+ ██████   ██████  ██ 
+                     
+                     
+" };
+    for (int i = 0; i < countdown.Length; i++)
+    {
+      Console.Clear();
+      Console.ForegroundColor = ConsoleColor.Green;
+      Console.WriteLine(countdown[i]);
+      Thread.Sleep(1000);
+      Console.Clear();
+    }
+    Console.ResetColor();
   }
 }

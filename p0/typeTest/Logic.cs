@@ -102,11 +102,7 @@ class Logic
     Console.WriteLine("SCORE: " + score);
   }
 
-  //endOfSentence -> when input == split sentence.length..reset displayText and what the user has typed so far. (maybe don't display user text like typemonkey)
 
-  //checkInput -> if inputPosition == sentence.charAt(inputPosition + 1?) rightKey() else wrongKey()
-
-  //rightKey -> score += 1, char to green
   public static void CorrectKey(int score)
   {
     Console.ForegroundColor = ConsoleColor.Green;
@@ -125,18 +121,25 @@ class Logic
 
   }
 
+  public static void HandleMenuCmdInput()
+  {
+    ConsoleKeyInfo key = Console.ReadKey(true);
+    ConsoleKey keyPressed = key.Key;
+    if (keyPressed == ConsoleKey.Escape)
+    {
+      Environment.Exit(0);
+    }
+    else if (keyPressed == ConsoleKey.Enter)
+    {
+      Menu.PrintInstructions();
+      Menu.PrintCountDown();
+      Run();
+    }
+  }
+
   //parent function to logic methods
   public static void Run()
   {
-    // string[] quotes = GetQuotes();
-    // ConsoleKey keyPressed;
-    // do
-    // {
-    //   ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-    //   keyPressed = keyInfo.Key;
-    //   DisplaySentence(quotes);
-    // }
-    // while (keyPressed != ConsoleKey.Escape);
     var timer = new Stopwatch(); //move to 
     timer.Start();
     string[] quotes = GetQuotes();
