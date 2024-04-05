@@ -1,5 +1,7 @@
 using System.Text;
 using System;
+using System.Diagnostics;
+
 
 
 namespace typeTest;
@@ -65,22 +67,19 @@ class Logic
     //log the key pressed
 
     int score = 0;
-    //loop through quotes -> convert each sentence to charArr.
     //compare key pressed with char in charArr
     for (int i = 0; i < quotes.Length; i++)
     {
-      string builder = quotes[i];
+      string quotesStr = quotes[i];
+      Console.WriteLine("Score: " + score);
+      Console.WriteLine(quotesStr);
 
-      Console.WriteLine(builder);
-
-
-
-      for (int j = 0; j < builder.Length; j++)
+      for (int j = 0; j < quotesStr.Length; j++)
       {
         ConsoleKeyInfo keyPressed = Console.ReadKey(true);
         char keyInfo = keyPressed.KeyChar;
 
-        if (keyInfo.Equals(builder[j]))
+        if (keyInfo.Equals(quotesStr[j]))
         {
           score++;
           Console.ForegroundColor = ConsoleColor.Green;
@@ -91,10 +90,12 @@ class Logic
           score--;
           Console.ForegroundColor = ConsoleColor.Red;
           Console.Write(keyInfo);
-
         };
+        Console.ResetColor();
       }
+      Console.Clear();
     }
+    Console.WriteLine("SCORE: " + score);
   }
 
   //endOfSentence -> when input == split sentence.length..reset displayText and what the user has typed so far. (maybe don't display user text like typemonkey)
@@ -160,8 +161,14 @@ class Logic
     //   DisplaySentence(quotes);
     // }
     // while (keyPressed != ConsoleKey.Escape);
+    var timer = new Stopwatch(); //move to 
+    timer.Start();
     string[] quotes = GetQuotes();
     DisplaySentence(quotes);
+    timer.Stop();
+    TimeSpan timeTaken = timer.Elapsed;
+    Console.WriteLine(timeTaken.ToString(@"m\:ss\.fff"));
+
   }
   //maybe create Map for Game attributes
 }
