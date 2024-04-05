@@ -8,6 +8,8 @@ class Program
         using HttpClient client = new HttpClient();
         var api = new Api(client);
         await api.GetText();
+        Menu.PrintHeader();
+        Console.ResetColor();
         Logic.Run();
         // Input.Type();
         // Logic.ReadNextChar();

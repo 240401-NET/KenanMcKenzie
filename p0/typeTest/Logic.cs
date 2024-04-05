@@ -8,21 +8,14 @@ namespace typeTest;
 
 class Logic
 {
+  private static int numCorrect;
+  private static int total;
+
   //set game state 
   //make separate class for reading and splitting json or do it here
 
   //Methods
-  //display instructions - start, quit, leaderboard, pause?
-  public static void PrintInstructions()
-  {
-    Console.WriteLine("Type the text on the screen as quickly as you can. \n"
-    + "Bonus points awarded for completing in under 2 minutes.");
-  }
 
-  public static void PrintCommands()
-  {
-    Console.WriteLine("Esc = quit, Enter = start");
-  }
   //startGame -> new Game(), myStopWatch.Start(), Api.getQuotes(), score to 0, initials to empty string, displayText(), isActive to true
   // public static void StartGame()
   // {
@@ -39,20 +32,29 @@ class Logic
   //   Console.WriteLine(newGame.Quotes.Capacity);
   // }
 
+  //calculateAccuracy -> #correct/total; make variable to keep count of right and quoteTxt.Length == Total;
+  public static string CalculateAccuracy(int total, int numCorrect)
+  {
+    double ratio = (double)total / numCorrect;
+    if (ratio != 1)
+    {
+      string ratioString = string.Format("{0:0.00}", ratio);
+
+      string formatted = ratioString.Substring(2, 2) + "%";
+      return formatted;
+    }
+    else return "100%";
+  }
+
   public static string[] GetQuotes()
   {
     try
     {
       string filePath = "quotes.txt";
       string quoteTxt = File.ReadAllText(filePath);
-
       string[] quotes = quoteTxt.Split(".").Select(sentence => sentence.Trim()).ToArray();
-      // foreach (string quote in quotes)
-      // {
-      //   Console.WriteLine("Quote: " + quote + "\n");
-      // }
 
-      return quotes; //foreach trim double whitespaces to 1
+      return quotes;
     }
     catch (Exception e)
     {
@@ -62,7 +64,7 @@ class Logic
   }
 
   //displayText -> deserialize from saved json, split into senetences, display 1 unused sentence at a time(maybe split into more methods)
-  public static void DisplaySentence(string[] quotes)
+  public static void DisplaySentence(string[] quotes, ref int numCorrect, ref int total)
   {
     //log the key pressed
 
@@ -71,6 +73,7 @@ class Logic
     for (int i = 0; i < quotes.Length; i++)
     {
       string quotesStr = quotes[i];
+      total += quotes[i].Length;
       Console.WriteLine("Score: " + score);
       Console.WriteLine(quotesStr);
 
@@ -81,6 +84,7 @@ class Logic
 
         if (keyInfo.Equals(quotesStr[j]))
         {
+          numCorrect++;
           score++;
           Console.ForegroundColor = ConsoleColor.Green;
           Console.Write(keyInfo);
@@ -101,35 +105,7 @@ class Logic
   //endOfSentence -> when input == split sentence.length..reset displayText and what the user has typed so far. (maybe don't display user text like typemonkey)
 
   //checkInput -> if inputPosition == sentence.charAt(inputPosition + 1?) rightKey() else wrongKey()
-  public static void ReadNextChar() //change return to bool and handle score elsewhere. Either call Input.Type here or get rid of it
-  {
-    string paragraph = "Ut ham chuck ut exercitation venison shoulder corned beef.  Commodo pork kielbasa, short loin jerky ribeye rump chicken irure consectetur velit ut hamburger.  Do doner nisi dolor short loin shoulder cow eu chuck exercitation kevin.  Short loin pork belly chuck kielbasa spare ribs qui buffalo pariatur in t-bone.  Tail prosciutto turducken, elit dolore ball tip pancetta chicken bacon filet mignon short ribs veniam pork.  Picanha kevin pork jowl filet mignon shank id hamburger leberkas mollit dolore.";
-    Console.WriteLine(paragraph);
-    int score = 0;
-    int selectedIndex;
-    do
-    {
-      char[] result = paragraph.ToCharArray();
-      ConsoleKeyInfo key = Console.ReadKey(true);
-      char keyChar = key.KeyChar;
-      //increment key presses and set as index of result
-      if (keyChar.Equals(result[0]))
-      {
-        //make above line a var and have different method to change color of that foreground
-        Console.ForegroundColor = ConsoleColor.Green;
-        score++;
-        Console.WriteLine("Score: " + score);
-      }
-      else
-      {
-        Console.ForegroundColor = ConsoleColor.Red;
 
-        score--;
-        Console.WriteLine("Score: " + score);
-        Console.ForegroundColor = ConsoleColor.White;
-      }
-    } while (true);
-  }
   //rightKey -> score += 1, char to green
   public static void CorrectKey(int score)
   {
@@ -164,10 +140,14 @@ class Logic
     var timer = new Stopwatch(); //move to 
     timer.Start();
     string[] quotes = GetQuotes();
-    DisplaySentence(quotes);
+    DisplaySentence(quotes, ref numCorrect, ref total);
     timer.Stop();
     TimeSpan timeTaken = timer.Elapsed;
     Console.WriteLine(timeTaken.ToString(@"m\:ss\.fff"));
+    Console.WriteLine("Total words: " + total + "\nTotalCorrect: " + numCorrect);
+
+
+    Console.WriteLine("Accuracy: " + CalculateAccuracy(numCorrect, total));
 
   }
   //maybe create Map for Game attributes

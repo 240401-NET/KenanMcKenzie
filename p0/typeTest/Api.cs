@@ -13,7 +13,7 @@ class Api
   //fetch quotes -> write to file
   public async Task GetText()
   {
-    var url = "https://baconipsum.com/api/?type=all-meat&sentences=5&format=text";
+    var url = "https://baconipsum.com/api/?type=all-meat&sentences=2&format=text";
     try
     {
       var response = await httpClient.GetAsync(url);
