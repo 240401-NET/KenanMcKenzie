@@ -27,6 +27,7 @@ class Menu
   {
     Console.WriteLine("Type the text on the screen as quickly as you can. \n"
     + "Bonus points awarded for completing in under 2 minutes.");
+    Thread.Sleep(2500);
   }
 
   //TODO: Log and act on input

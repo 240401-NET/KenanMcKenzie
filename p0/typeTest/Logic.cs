@@ -1,5 +1,4 @@
-using System.Text;
-using System;
+
 using System.Diagnostics;
 
 
@@ -9,9 +8,10 @@ namespace typeTest;
 class Logic
 {
   private static int numCorrect;
-  private static int total;
 
-  //set game state 
+  private static int numIncorrect;
+
+
   //make separate class for reading and splitting json or do it here
 
   //Methods
@@ -33,17 +33,26 @@ class Logic
   // }
 
   //calculateAccuracy -> #correct/total; make variable to keep count of right and quoteTxt.Length == Total;
-  public static string CalculateAccuracy(int total, int numCorrect)
+  public static int GetTotal(int correct, int incorrect)
   {
-    double ratio = (double)total / numCorrect;
-    if (ratio != 1)
-    {
-      string ratioString = string.Format("{0:0.00}", ratio);
-
-      string formatted = ratioString.Substring(2, 2) + "%";
-      return formatted;
-    }
-    else return "100%";
+    return correct + incorrect;
+  }
+  public static double CalculateAccuracy()
+  {
+    int total = GetTotal(numCorrect, numIncorrect);
+    double ratio = (double)numCorrect / total;
+    return Math.Round(ratio, 2);
+  }
+  public static double CalculateWPM(double minutes)
+  {
+    int totalWords = GetTotal(numCorrect, numIncorrect);
+    double WPM = Math.Round(totalWords / 5 / minutes);
+    return WPM;
+  }
+  public static double CalculateAWPM(double minutes)
+  {
+    double adjustedWPM = Math.Round(CalculateAccuracy() * CalculateWPM(minutes));
+    return adjustedWPM;
   }
 
   public static string[] GetQuotes()
@@ -63,62 +72,70 @@ class Logic
     }
   }
 
-  //displayText -> deserialize from saved json, split into senetences, display 1 unused sentence at a time(maybe split into more methods)
-  public static void DisplaySentence(string[] quotes, ref int numCorrect, ref int total)
+  public static void DisplaySentence(string[] quotes)
   {
-    //log the key pressed
 
-    int score = 0;
-    //compare key pressed with char in charArr
+
     for (int i = 0; i < quotes.Length; i++)
     {
       string quotesStr = quotes[i];
-      total += quotes[i].Length;
-      Console.WriteLine("Score: " + score);
+
       Console.WriteLine(quotesStr);
 
       for (int j = 0; j < quotesStr.Length; j++)
       {
         ConsoleKeyInfo keyPressed = Console.ReadKey(true);
         char keyInfo = keyPressed.KeyChar;
+        ConsoleKey key = keyPressed.Key;
 
         if (keyInfo.Equals(quotesStr[j]))
         {
-          numCorrect++;
-          score++;
-          Console.ForegroundColor = ConsoleColor.Green;
-          Console.Write(keyInfo);
+          CorrectKey(keyInfo);
+        }
+        else if (key.Equals(ConsoleKey.Delete))
+        {
+          Console.WriteLine("Goodbye!");
+          Thread.Sleep(1000);
+
+          Console.Clear();
+          Menu.PrintHeader();
+          break;
         }
         else
         {
-          score--;
-          Console.ForegroundColor = ConsoleColor.Red;
-          Console.Write(keyInfo);
-        };
+          IncorrectKey(keyInfo);
+        }
+
         Console.ResetColor();
       }
       Console.Clear();
     }
-    Console.WriteLine("SCORE: " + score);
   }
 
 
-  public static void CorrectKey(int score)
+  public static void CorrectKey(char kp)
   {
+    numCorrect++;
     Console.ForegroundColor = ConsoleColor.Green;
-    score++;
+    Console.Write(kp);
   }
   //wrongKey -> score -= 1, char to red
-  public static void IncorrectKey(int score)
+  public static void IncorrectKey(char kp)
   {
+    numIncorrect++;
     Console.ForegroundColor = ConsoleColor.Red;
-    score--;
+    Console.Write(kp);
   }
   //revertScore -> if KeyChar is backspace, revert score
   //endGame -> myStopWatch.Stop() -> display time elapsed myStopWatch.Elapsed + add points for under 3 minutes, prompts for initials, shows spot in leaderboard, Game.isActive false
-  public static void EndGame()
+  public static void EndGame(double minutes)
   {
+    Console.WriteLine("** Accuracy: " + CalculateAccuracy() * 100 + "%");
+    Console.WriteLine("** Words Per Minute: " + CalculateWPM(minutes));
+    Console.WriteLine("** Adjusted Words Per Minute: " + CalculateAWPM(minutes));
 
+    Thread.Sleep(3000);
+    Console.Clear();
   }
 
   public static void HandleMenuCmdInput()
@@ -134,24 +151,27 @@ class Logic
       Menu.PrintInstructions();
       Menu.PrintCountDown();
       Run();
+
     }
+    Menu.PrintHeader();
   }
+
+
+  //List<Input> elements = [{score was ++ or --, cursor position, keyPressed }, {}]
+  //
+
 
   //parent function to logic methods
   public static void Run()
   {
-    var timer = new Stopwatch(); //move to 
+    var timer = new Stopwatch();
     timer.Start();
     string[] quotes = GetQuotes();
-    DisplaySentence(quotes, ref numCorrect, ref total);
+    DisplaySentence(quotes);
     timer.Stop();
     TimeSpan timeTaken = timer.Elapsed;
-    Console.WriteLine(timeTaken.ToString(@"m\:ss\.fff"));
-    Console.WriteLine("Total words: " + total + "\nTotalCorrect: " + numCorrect);
-
-
-    Console.WriteLine("Accuracy: " + CalculateAccuracy(numCorrect, total));
-
+    double minutes = Math.Round(timeTaken.TotalMinutes, 2);
+    EndGame(minutes);
   }
   //maybe create Map for Game attributes
 }
