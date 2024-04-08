@@ -1,38 +1,15 @@
-
 using System.Diagnostics;
-
-
+using System.Text.RegularExpressions;
 
 namespace typeTest;
 
-class Logic
+public class Logic
 {
   private static int numCorrect;
 
   private static int numIncorrect;
+  private static List<Game> completedGames = new();
 
-
-  //make separate class for reading and splitting json or do it here
-
-  //Methods
-
-  //startGame -> new Game(), myStopWatch.Start(), Api.getQuotes(), score to 0, initials to empty string, displayText(), isActive to true
-  // public static void StartGame()
-  // {
-
-  //   Game newGame = new();
-  //   newGame.GameDate = DateTime.Now;
-  //   newGame.IsActive = true;
-  //   newGame.Score = 0;
-  //   newGame.Quotes = ListQuotes(); //maybe remove from Game, already getting new quotes each game
-  //   // foreach (string quote in newGame.Quotes)
-  //   // {
-  //   //   Console.WriteLine(quote + "\n");
-  //   // }
-  //   Console.WriteLine(newGame.Quotes.Capacity);
-  // }
-
-  //calculateAccuracy -> #correct/total; make variable to keep count of right and quoteTxt.Length == Total;
   public static int GetTotal(int correct, int incorrect)
   {
     return correct + incorrect;
@@ -62,7 +39,6 @@ class Logic
       string filePath = "quotes.txt";
       string quoteTxt = File.ReadAllText(filePath);
       string[] quotes = quoteTxt.Split(".").Select(sentence => sentence.Trim()).ToArray();
-
       return quotes;
     }
     catch (Exception e)
@@ -74,12 +50,9 @@ class Logic
 
   public static void DisplaySentence(string[] quotes)
   {
-
-
     for (int i = 0; i < quotes.Length; i++)
     {
       string quotesStr = quotes[i];
-
       Console.WriteLine(quotesStr);
 
       for (int j = 0; j < quotesStr.Length; j++)
@@ -96,7 +69,6 @@ class Logic
         {
           Console.WriteLine("Goodbye!");
           Thread.Sleep(1000);
-
           Console.Clear();
           Menu.PrintHeader();
           break;
@@ -105,7 +77,6 @@ class Logic
         {
           IncorrectKey(keyInfo);
         }
-
         Console.ResetColor();
       }
       Console.Clear();
@@ -119,23 +90,61 @@ class Logic
     Console.ForegroundColor = ConsoleColor.Green;
     Console.Write(kp);
   }
-  //wrongKey -> score -= 1, char to red
   public static void IncorrectKey(char kp)
   {
     numIncorrect++;
     Console.ForegroundColor = ConsoleColor.Red;
     Console.Write(kp);
   }
-  //revertScore -> if KeyChar is backspace, revert score
-  //endGame -> myStopWatch.Stop() -> display time elapsed myStopWatch.Elapsed + add points for under 3 minutes, prompts for initials, shows spot in leaderboard, Game.isActive false
-  public static void EndGame(double minutes)
+  public static bool IsValid(string input)
   {
-    Console.WriteLine("** Accuracy: " + CalculateAccuracy() * 100 + "%");
-    Console.WriteLine("** Words Per Minute: " + CalculateWPM(minutes));
-    Console.WriteLine("** Adjusted Words Per Minute: " + CalculateAWPM(minutes));
+    string pattern = @"/^[A-Za-z]+$/";
+    Regex regex = new Regex(pattern);
+    if (regex.IsMatch(input))
+    {
+      Console.WriteLine("regex prob");
+      return false;
+    }
+    if (input.Length != 3)
+    {
+      Console.WriteLine("Must be 3 letters");
+      return false;
+    }
+    return true;
+  }
 
+  public static Game EndGame(double minutes)
+  {
+    double accuracy = CalculateAccuracy();
+    double wordsPerMinute = CalculateWPM(minutes);
+    double adjusted = CalculateAWPM(minutes);
+    Console.WriteLine("** Accuracy: " + accuracy * 100 + "% **");
+    Console.WriteLine("** Words Per Minute: " + wordsPerMinute + " **");
+    Console.WriteLine("** Adjusted Words Per Minute: " + adjusted + " **");
+    string userInitials = CollectInitials();
+    Game newGame = new()
+    {
+      Initials = userInitials,
+      Accuracy = accuracy * 100,
+      WPM = wordsPerMinute,
+      AWPM = adjusted
+    };
+    completedGames.Add(newGame);
     Thread.Sleep(3000);
     Console.Clear();
+    return newGame;
+  }
+
+  public static string CollectInitials()
+  {
+    Console.WriteLine("Enter your initials: ");
+    string userInput = Console.ReadLine();
+    if (!IsValid(userInput))
+    {
+      Console.WriteLine("Initials must only contain 3 letters.\n Please try again");
+      return CollectInitials();
+    }
+    return userInput;
   }
 
   public static void HandleMenuCmdInput()
@@ -151,17 +160,10 @@ class Logic
       Menu.PrintInstructions();
       Menu.PrintCountDown();
       Run();
-
     }
     Menu.PrintHeader();
   }
 
-
-  //List<Input> elements = [{score was ++ or --, cursor position, keyPressed }, {}]
-  //
-
-
-  //parent function to logic methods
   public static void Run()
   {
     var timer = new Stopwatch();
@@ -173,5 +175,4 @@ class Logic
     double minutes = Math.Round(timeTaken.TotalMinutes, 2);
     EndGame(minutes);
   }
-  //maybe create Map for Game attributes
 }
