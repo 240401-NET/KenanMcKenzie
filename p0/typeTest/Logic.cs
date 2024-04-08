@@ -130,6 +130,7 @@ public class Logic
       AWPM = adjusted
     };
     completedGames.Add(newGame);
+    Data.SaveGame(completedGames);
     Thread.Sleep(3000);
     Console.Clear();
     return newGame;
@@ -160,6 +161,10 @@ public class Logic
       Menu.PrintInstructions();
       Menu.PrintCountDown();
       Run();
+    }
+    else if (keyPressed == ConsoleKey.L)
+    {
+      Leaderboard.DisplayLeaderboard(completedGames);
     }
     Menu.PrintHeader();
   }

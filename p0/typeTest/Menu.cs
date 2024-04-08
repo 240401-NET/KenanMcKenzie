@@ -16,7 +16,7 @@ class Menu
 ";
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.WriteLine(title);
-    Console.WriteLine("Esc = quit, Enter = start");
+    Console.WriteLine("Esc = Quit, Enter = Start, L = Leaderboard\n\n");
     Console.ResetColor();
   }
 

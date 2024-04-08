@@ -4,11 +4,23 @@ namespace typeTest;
 
 class Data
 {
-  public static string leaderboardFile = "leaderboard.cs";
+  public static string leaderboardFile = "leaderboard.json";
   public static void SaveGame(List<Game> gamesList)
   {
-    string jsonGames = JsonSerializer.Serialize(gamesList);
-    File.WriteAllText(leaderboardFile, jsonGames);
+    JsonSerializerOptions options = new()
+    {
+      WriteIndented = true
+    };
+    try
+    {
+      string jsonGames = JsonSerializer.Serialize(gamesList);
+      File.WriteAllText(leaderboardFile, jsonGames);
+    }
+    catch (Exception ex)
+    {
+      Console.WriteLine("Error saving games: " + ex.Message);
+      throw;
+    }
   }
 
   public static List<Game> LoadGames()
