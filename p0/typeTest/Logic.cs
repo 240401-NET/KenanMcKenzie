@@ -124,6 +124,7 @@ public class Logic
     Console.WriteLine("** Accuracy: " + accuracy * 100 + "% **");
     Console.WriteLine("** Words Per Minute: " + wordsPerMinute + " **");
     Console.WriteLine("** Adjusted Words Per Minute: " + adjusted + " **");
+
     string userInitials = CollectInitials();
     var today = DateOnly.FromDateTime(DateTime.Now);
     //setting game properties -> adding to list -> returning to main menu
@@ -150,16 +151,14 @@ public class Logic
     string userInput = Console.ReadLine();
     if (!IsValid(userInput))
     {
-      Console.WriteLine("Initials must only contain 3 letters.\n Please try again");
       return CollectInitials();
     }
     return userInput;
   }
   public static bool IsValid(string input)
   {
-    string pattern = @"/^[A-Za-z]+$/"; //only letters
-    Regex regex = new Regex(pattern);
-    if (regex.IsMatch(input))
+
+    if (!input.All(char.IsLetter))
     {
       Console.WriteLine("Must only contain letters");
       return false;
