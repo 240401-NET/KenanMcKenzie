@@ -14,10 +14,10 @@ public class Logic
   {
     return correct + incorrect;
   }
-  public static double CalculateAccuracy()
+  public static double CalculateAccuracy(int correct, int incorrect)
   {
-    int total = GetTotal(numCorrect, numIncorrect);
-    double ratio = (double)numCorrect / total;
+    int total = GetTotal(correct, incorrect);
+    double ratio = (double)correct / total;
     return Math.Round(ratio, 2);
   }
   public static double CalculateWPM(double minutes)
@@ -28,7 +28,7 @@ public class Logic
   }
   public static double CalculateAWPM(double minutes)
   {
-    double adjustedWPM = Math.Round(CalculateAccuracy() * CalculateWPM(minutes));
+    double adjustedWPM = Math.Round(CalculateAccuracy(numCorrect, numIncorrect) * CalculateWPM(minutes));
     return adjustedWPM;
   }
 
@@ -115,7 +115,9 @@ public class Logic
 
   public static Game EndGame(double minutes)
   {
-    double accuracy = CalculateAccuracy();
+    completedGames = Data.LoadGames();
+
+    double accuracy = CalculateAccuracy(numCorrect, numIncorrect);
     double wordsPerMinute = CalculateWPM(minutes);
     double adjusted = CalculateAWPM(minutes);
     Console.WriteLine("** Accuracy: " + accuracy * 100 + "% **");
@@ -131,6 +133,7 @@ public class Logic
       AWPM = adjusted,
       Date = today
     };
+
     completedGames.Add(newGame);
     Data.SaveGame(completedGames);
     Thread.Sleep(3000);
@@ -153,12 +156,10 @@ public class Logic
 
   public static void HandleMenuCmdInput()
   {
-    bool running = true;
     ConsoleKeyInfo key = Console.ReadKey(true);
     ConsoleKey keyPressed = key.Key;
     if (keyPressed == ConsoleKey.Escape)
     {
-      running = false;
       Environment.Exit(0);
     }
     else if (keyPressed == ConsoleKey.Enter)

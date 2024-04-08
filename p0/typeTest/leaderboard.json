@@ -1,1 +1,26 @@
-[{"Initials":"KWM","WPM":58,"AWPM":57,"Accuracy":98,"IsActive":false,"Date":"2024-04-07"}]
+[
+  {
+    "Initials": "ggg",
+    "WPM": 61,
+    "AWPM": 59,
+    "Accuracy": 96,
+    "IsActive": false,
+    "Date": "2024-04-08"
+  },
+  {
+    "Initials": "ddd",
+    "WPM": 59,
+    "AWPM": 58,
+    "Accuracy": 98,
+    "IsActive": false,
+    "Date": "2024-04-08"
+  },
+  {
+    "Initials": "fff",
+    "WPM": 126,
+    "AWPM": 117,
+    "Accuracy": 93,
+    "IsActive": false,
+    "Date": "2024-04-08"
+  }
+]

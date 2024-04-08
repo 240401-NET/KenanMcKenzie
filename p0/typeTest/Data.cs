@@ -13,7 +13,7 @@ class Data
     };
     try
     {
-      string jsonGames = JsonSerializer.Serialize(gamesList);
+      string jsonGames = JsonSerializer.Serialize(gamesList, options);
       File.WriteAllText(leaderboardFile, jsonGames);
     }
     catch (Exception ex)
