@@ -122,17 +122,20 @@ public class Logic
     Console.WriteLine("** Words Per Minute: " + wordsPerMinute + " **");
     Console.WriteLine("** Adjusted Words Per Minute: " + adjusted + " **");
     string userInitials = CollectInitials();
+    var today = DateOnly.FromDateTime(DateTime.Now);
     Game newGame = new()
     {
       Initials = userInitials,
       Accuracy = accuracy * 100,
       WPM = wordsPerMinute,
-      AWPM = adjusted
+      AWPM = adjusted,
+      Date = today
     };
     completedGames.Add(newGame);
     Data.SaveGame(completedGames);
     Thread.Sleep(3000);
     Console.Clear();
+    Menu.PrintHeader();
     return newGame;
   }
 
@@ -150,10 +153,12 @@ public class Logic
 
   public static void HandleMenuCmdInput()
   {
+    bool running = true;
     ConsoleKeyInfo key = Console.ReadKey(true);
     ConsoleKey keyPressed = key.Key;
     if (keyPressed == ConsoleKey.Escape)
     {
+      running = false;
       Environment.Exit(0);
     }
     else if (keyPressed == ConsoleKey.Enter)
@@ -165,8 +170,12 @@ public class Logic
     else if (keyPressed == ConsoleKey.L)
     {
       Leaderboard.DisplayLeaderboard(completedGames);
+      if (keyPressed == ConsoleKey.Enter)
+      {
+        Console.Clear();
+        Menu.PrintHeader();
+      }
     }
-    Menu.PrintHeader();
   }
 
   public static void Run()

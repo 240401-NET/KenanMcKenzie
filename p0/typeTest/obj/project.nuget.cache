@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "SNO8P84sNd7FFSuVdqqujkAkC4+nigvlOS9qLtLjoWMNza2j/VgW5MZGGLYHfnEDHfgWniBkszD36/b0T6HarA==",
+  "dgSpecHash": "AcmRJcyI+NW8dZjmbVlef0POFNeAQkyCPNee4GM3GwBCuLMASEVRIrwtAy+n5cwob9pv6FigjcIb8AouE+5NSw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Owner\\Desktop\\revature_c#\\KenanMcKenzie\\p0\\typeTest\\typeTest.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Owner\\.nuget\\packages\\consoletables\\2.6.1\\consoletables.2.6.1.nupkg.sha512"
+  ],
   "logs": []
 }

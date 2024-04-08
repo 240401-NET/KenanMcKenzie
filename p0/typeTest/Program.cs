@@ -9,7 +9,10 @@ class Program
         await api.GetText();
         Console.Clear();
         Menu.PrintHeader();
-        Logic.HandleMenuCmdInput();
+        while (true)
+        {
+            Logic.HandleMenuCmdInput();
+        }
     }
 
 }

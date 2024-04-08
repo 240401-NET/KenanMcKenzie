@@ -13,3 +13,6 @@ C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\re
 C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\typeTest.pdb
 C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\typeTest.genruntimeconfig.cache
 C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\ref\typeTest.dll
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\bin\Debug\net8.0\ConsoleTables.dll
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\typeTest.csproj.AssemblyReference.cache
+C:\Users\Owner\Desktop\revature_c#\KenanMcKenzie\p0\typeTest\obj\Debug\net8.0\typeTest.csproj.Up2Date
