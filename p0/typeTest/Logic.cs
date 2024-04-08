@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 
 namespace typeTest;
 
@@ -184,7 +183,7 @@ public class Logic
     double ratio = (double)correct / total;
     return Math.Round(ratio, 2);
   }
-  //words per minute = total keys pressed/word(any 5 characters)
+  //words per minute = total keys pressed/word(any 5 characters) -> to nearest whole number
   public static double CalculateWPM(double minutes)
   {
     int totalWords = GetTotal(numCorrect, numIncorrect);
