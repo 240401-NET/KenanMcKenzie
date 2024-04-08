@@ -22,5 +22,13 @@
     "Accuracy": 93,
     "IsActive": false,
     "Date": "2024-04-08"
+  },
+  {
+    "Initials": "KWM",
+    "WPM": 57,
+    "AWPM": 54,
+    "Accuracy": 95,
+    "IsActive": false,
+    "Date": "2024-04-08"
   }
 ]

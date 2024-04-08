@@ -25,8 +25,7 @@ class Menu
 
   public static void PrintInstructions()
   {
-    Console.WriteLine("Type the text on the screen as quickly as you can. \n"
-    + "Bonus points awarded for completing in under 2 minutes.");
+    Console.WriteLine("Type the text on the screen as quickly and accurately as you can! \nPress delete to return home");
     Thread.Sleep(2500);
   }
 
@@ -78,4 +77,6 @@ class Menu
     }
     Console.ResetColor();
   }
+
+
 }

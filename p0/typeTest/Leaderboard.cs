@@ -4,11 +4,9 @@ using System.Data;
 using ConsoleTables;
 class Leaderboard
 {
-  //save Game.Score to new json file 
-  //create table, initials | score | completedIn(time) | date display top 50 
   public static void DisplayLeaderboard(List<Game> gamesList)
   {
-    var table = new ConsoleTable("#", "Player", "Accuracy", "WPM", "AdjWPM", "Date");
+    var table = new ConsoleTable("#", "Player", "Accuracy", "WPM", "AdjWPM", "Date");//column names
     string leaderboardHeader = @"
     __                   __          __                         __
    / /   ___  ____ _____/ /__  _____/ /_  ____  ____ __________/ /
@@ -20,10 +18,11 @@ class Leaderboard
     Console.Clear();
     Console.WriteLine(leaderboardHeader + "\n\n");
 
-
+    //using linq to order list by adjusted words per minute
     gamesList = Data.LoadGames().OrderByDescending(awpm => awpm.AWPM).ToList();
     for (int i = 0; i < gamesList.Count; i++)
     {
+      //row values
       table.AddRow(i + 1, gamesList[i].Initials, gamesList[i].Accuracy + "%", gamesList[i].WPM, gamesList[i].AWPM, gamesList[i].Date);
     }
     table.Write();

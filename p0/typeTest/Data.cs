@@ -7,6 +7,7 @@ class Data
   public static string leaderboardFile = "leaderboard.json";
   public static void SaveGame(List<Game> gamesList)
   {
+    //formatting in leaderboardFile
     JsonSerializerOptions options = new()
     {
       WriteIndented = true

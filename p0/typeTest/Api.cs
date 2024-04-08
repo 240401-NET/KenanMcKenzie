@@ -20,12 +20,11 @@ class Api
       if (response.IsSuccessStatusCode)
       {
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        // Console.WriteLine("jsonRes: " + jsonResponse); //-> ["Sentence", "Sentence"...]
         if (jsonResponse != null)
         {
           //write to file (name, content)
           string quoteFileName = "quotes.txt";
-          File.WriteAllText(quoteFileName, jsonResponse.ToString()); //read and separate in Logic
+          File.WriteAllText(quoteFileName, jsonResponse.ToString());
         }
       }
       else
@@ -36,7 +35,7 @@ class Api
     }
     catch (Exception ex)
     {
-      Console.WriteLine("Error connecting to endpoint: " + ex.Message); //make custom exception classes
+      Console.WriteLine("Error connecting to endpoint: " + ex.Message);
     }
   }
 }
