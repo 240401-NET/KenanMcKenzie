@@ -7,6 +7,7 @@ const CreateQuiz = () => {
       <Header title="Create Quiz" />
       <div className="">
       <CreateQuizForm />
+      
       </div>
     </div>
   )
