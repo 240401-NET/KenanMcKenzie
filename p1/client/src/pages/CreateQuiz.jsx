@@ -3,9 +3,11 @@ import Header from "../components/Header"
 
 const CreateQuiz = () => {
   return (
-    <div>
+    <div className="flex flex-col items-center text-center border ">
       <Header title="Create Quiz" />
+      <div className="">
       <CreateQuizForm />
+      </div>
     </div>
   )
 }
