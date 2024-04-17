@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace server;
+namespace server.Model;
 
 public partial class Quiz
 {
@@ -11,13 +11,11 @@ public partial class Quiz
 
     public string Description { get; set; } = null!;
 
-    public int Score { get; set; }
-
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 
     public DateTime UpdatedAt { get; set; }
 
-    public int CreatedBy { get; set; }
+    public string CreatedBy { get; set; }
 
     public virtual User CreatedByNavigation { get; set; } = null!;
 

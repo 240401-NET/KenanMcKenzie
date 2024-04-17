@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using p1.Model;
+using server.Model;
+namespace server.Data;
 
-namespace server;
-
-public partial class FreeDbContext : DbContext
+public partial class FreeDbContext : IdentityDbContext<User>
 {
-    public FreeDbContext()
-    {
-    }
-
     public FreeDbContext(DbContextOptions<FreeDbContext> options)
         : base(options)
     {
@@ -23,13 +21,9 @@ public partial class FreeDbContext : DbContext
 
     public virtual DbSet<Tag> Tags { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer();
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Question>(entity =>
         {
             entity.HasKey(e => e.QuestionId).HasName("PK__Question__2EC21549A14D8346");
@@ -84,7 +78,6 @@ public partial class FreeDbContext : DbContext
             entity.Property(e => e.Description)
                 .HasMaxLength(30)
                 .HasColumnName("description");
-            entity.Property(e => e.Score).HasColumnName("score");
             entity.Property(e => e.Title)
                 .HasMaxLength(20)
                 .HasColumnName("title");
@@ -129,23 +122,9 @@ public partial class FreeDbContext : DbContext
                 .HasColumnName("tagName");
         });
 
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__User__3213E83F2EB189D0");
 
-            entity.ToTable("User", "quiz_schema");
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Email)
-                .HasMaxLength(50)
-                .HasColumnName("email");
-            entity.Property(e => e.Password)
-                .HasMaxLength(20)
-                .HasColumnName("password");
-            entity.Property(e => e.Username)
-                .HasMaxLength(20)
-                .HasColumnName("username");
-        });
+
 
         OnModelCreatingPartial(modelBuilder);
     }

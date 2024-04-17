@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace server;
+namespace server.Model;
 
 public partial class Tag
 {
