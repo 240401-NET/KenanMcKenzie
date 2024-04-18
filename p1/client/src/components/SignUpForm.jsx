@@ -1,25 +1,42 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { signUp } from "../api/userService";
+// import { signUp } from "../api/userService";
 import logo from "../assets/quizlogo.png";
 const SignUpForm = () => {
   //email, username, password
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [Email, setEmail] = useState("");
+  const [PasswordHash, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [name, setName] = useState("");
+  const [Name, setName] = useState("");
+  const [UserName, setUserName] = useState("");
 
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    try {
-      const response = await signUp(name, email, password);
-      console.log(response);
-      navigate("/user");
-    } catch (error) {
-      console.error(error);
+    const dataToSend = {
+      Email,
+      PasswordHash,
+      Name,
+      UserName,
+    };
+    const response = await fetch("api/user/register", {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(dataToSend),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log(data);
+      localStorage.setItem("user", dataToSend.Email);
+      navigate("/signin");
     }
+    console.log("Error", data.message);
   };
 
   const inputClass =
@@ -40,14 +57,26 @@ const SignUpForm = () => {
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleSignup}>
           <div>
+            <label className={labelClass}>Name</label>
+            <div className="mt-2">
+              <input
+                type="text"
+                value={Name}
+                required
+                className={inputClass}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+          </div>
+          <div>
             <label className={labelClass}>Username</label>
             <div className="mt-2">
               <input
                 type="text"
-                value={name}
+                value={UserName}
                 required
                 className={inputClass}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setUserName(e.target.value)}
               />
             </div>
           </div>
@@ -61,7 +90,7 @@ const SignUpForm = () => {
                 id="email"
                 type="email"
                 autoComplete="email"
-                value={email}
+                value={Email}
                 required
                 className={inputClass}
                 onChange={(e) => setEmail(e.target.value)}
@@ -79,7 +108,7 @@ const SignUpForm = () => {
               <input
                 id="password"
                 type="password"
-                value={password}
+                value={PasswordHash}
                 required
                 className={inputClass}
                 onChange={(e) => setPassword(e.target.value)}

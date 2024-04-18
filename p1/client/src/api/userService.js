@@ -17,13 +17,15 @@ export const loginUser = (email, password) => {
   );
 };
 
-export const signUp = (name, email, password) => {
+export const signUp = async (Name, UserName, Email, PasswordHash) => {
+  console.log(`${API_URL}/user/register`);
   return axios.post(
     `${API_URL}/user/register`,
     {
-      name,
-      email,
-      password,
+      Name,
+      UserName,
+      Email,
+      PasswordHash,
     },
     {
       withCredentials: true,

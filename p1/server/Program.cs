@@ -30,29 +30,31 @@ builder.Services.AddIdentityCore<User>(options =>
 //if Repository or service is calling dbContext -> builder.Services.AddScoped<QuizRepository>()
 
 builder.Services.AddSwaggerGen();
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed(origin => true));
+});
 
 
 var app = builder.Build();
-
+app.UseDefaultFiles();
+app.UseStaticFiles();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("AllowAll");
 }
 app.UseHttpsRedirection();
 app.UseAuthorization();
 //select the interface that has just the required method, not the one with extra
 //efcore migration, choose the one with the dash
-app.UseCors(builder => builder
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-);
+
 app.MapIdentityApi<User>();
 
 app.MapControllers();
+app.MapFallbackToFile("/index.html");
 app.Run();
 
 

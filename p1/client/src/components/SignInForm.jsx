@@ -1,23 +1,37 @@
 import { useState } from "react";
 import logo from "../assets/quizlogo.png";
 import { useNavigate, Link } from "react-router-dom";
-import { loginUser } from "../api/userService";
 
 const SignInForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const [Username, setUserName] = useState("");
 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const response = await loginUser(email, password);
-      console.log(response);
+    const formData = {
+      Email: Email,
+      Password: Password,
+      Username: Username,
+      Remember: true,
+    };
+    const response = await fetch("api/user/login", {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    const data = await response.json();
+    if (response.ok) {
+      localStorage.setItem("user", JSON.stringify(data));
       navigate("/user");
-    } catch (error) {
-      console.error(error);
     }
+    console.log("Error", data);
   };
 
   const inputClass =
@@ -48,6 +62,22 @@ const SignInForm = () => {
                 required
                 className={inputClass}
                 onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+          </div>
+          <div>
+            <label htmlFor="email" className={labelClass}>
+              Username
+            </label>
+            <div className="mt-2">
+              <input
+                id="username"
+                name="username"
+                value={Username}
+                type="text"
+                required
+                className={inputClass}
+                onChange={(e) => setUserName(e.target.value)}
               />
             </div>
           </div>

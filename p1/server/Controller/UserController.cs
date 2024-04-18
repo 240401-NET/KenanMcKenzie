@@ -40,7 +40,7 @@ public class UserController(SignInManager<User> _signInManager, UserManager<User
     {
       return BadRequest("Error creating user: " + e.Message);
     }
-    return Ok(new { message, newUser });
+    return Ok(new { message = message, newUser = newUser });
   }
   [HttpPost("login")]
   public async Task<ActionResult> SignIn(Login loginAttempt)
@@ -49,6 +49,13 @@ public class UserController(SignInManager<User> _signInManager, UserManager<User
     try
     {
       User _user = await userManager.FindByEmailAsync(loginAttempt.Email);
+      if (_user != null)
+      {
+        loginAttempt.Username = _user.UserName;
+        if(!_user.EmailConfirmed){
+										   _user.EmailConfirmed = true;
+										}
+      
       //(TUser user, string password, bool isPersistent, bool lockoutOnFailure);
       var result = await signInManager.PasswordSignInAsync(_user, loginAttempt.Password, loginAttempt.Remember, false);
       if (!result.Succeeded)
@@ -57,6 +64,9 @@ public class UserController(SignInManager<User> _signInManager, UserManager<User
       }
       var updated = await userManager.UpdateAsync(_user);
       message = "Logged in";
+      } else {
+        return BadRequest(message = "User not found");
+      }
     }
     catch (Exception e)
     {
