@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
+
 builder.Services.AddAuthorization();
 var connectionString = builder.Configuration["connectionstring"];
 Console.WriteLine("connstring: " + connectionString);
@@ -15,7 +16,7 @@ builder.Services.AddDbContext<FreeDbContext>(x => x.UseSqlServer(connectionStrin
 builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<FreeDbContext>();
 builder.Services.AddIdentityCore<User>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedAccount = false;
 
     options.Password.RequireDigit = true;
     options.Password.RequireNonAlphanumeric = true;
@@ -28,9 +29,8 @@ builder.Services.AddIdentityCore<User>(options =>
 //connectionstring
 //if Repository or service is calling dbContext -> builder.Services.AddScoped<QuizRepository>()
 
-
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddCors();
 
 
 var app = builder.Build();
@@ -45,6 +45,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 //select the interface that has just the required method, not the one with extra
 //efcore migration, choose the one with the dash
+app.UseCors(builder => builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+);
 app.MapIdentityApi<User>();
 
 app.MapControllers();

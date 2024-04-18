@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using server.Model;
 using p1.Model;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace server.Controller;
 
@@ -12,9 +13,8 @@ namespace server.Controller;
 [Route("/user")]
 public class UserController(SignInManager<User> _signInManager, UserManager<User> _userManager) : ControllerBase
 {
-  //Register -> post
-  private readonly SignInManager<User> signInManager; //api for user sign in https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1?view=aspnetcore-8.0
-  private readonly UserManager<User> userManager;//handles user persistence https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.identity.usermanager-1?view=aspnetcore-8.0
+  private readonly SignInManager<User> signInManager = _signInManager; //api for user sign in https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1?view=aspnetcore-8.0
+  private readonly UserManager<User> userManager = _userManager;//handles user persistence https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.identity.usermanager-1?view=aspnetcore-8.0
 
   [HttpPost("register")]
   public async Task<ActionResult> Register(User user)
@@ -49,10 +49,7 @@ public class UserController(SignInManager<User> _signInManager, UserManager<User
     try
     {
       User _user = await userManager.FindByEmailAsync(loginAttempt.Email);
-      if (_user != null && _user.EmailConfirmed)
-      {
-        _user.EmailConfirmed = true;
-      }
+      //(TUser user, string password, bool isPersistent, bool lockoutOnFailure);
       var result = await signInManager.PasswordSignInAsync(_user, loginAttempt.Password, loginAttempt.Remember, false);
       if (!result.Succeeded)
       {
@@ -68,7 +65,7 @@ public class UserController(SignInManager<User> _signInManager, UserManager<User
     return Ok(new { message });
   }
 
-  [HttpGet("logout"), Authorize]
+  [HttpGet("logout"), Authorize]//Authorize refers to having a cookie/token
   public async Task<ActionResult> Logout()
   {
     string message;
@@ -82,6 +79,33 @@ public class UserController(SignInManager<User> _signInManager, UserManager<User
     }
     return Ok(new { message = "Logged out successfully" });
   }
+
+  [HttpGet("verify"), Authorize]
+  public async Task<ActionResult> VerifyUser()
+  {
+    string message = "Logged in";
+    User currentUser = new();
+    try
+    {
+      var _user = HttpContext.User;
+      var principal = new ClaimsPrincipal(_user);
+      var result = signInManager.IsSignedIn(principal);
+      if (result)
+      {
+        currentUser = await signInManager.UserManager.GetUserAsync(principal);
+      }
+      else
+      {
+        return Forbid("Not authorized to view this page");
+      }
+    }
+    catch (Exception e)
+    {
+      return BadRequest("Error verifying user: " + e.Message);
+    }
+    return Ok(new { message, user = currentUser });
+  }
+
 
 
 
