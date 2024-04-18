@@ -17,13 +17,13 @@ builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<FreeDb
 builder.Services.AddIdentityCore<User>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
-
     options.Password.RequireDigit = true;
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 6;
 
-    options.User.RequireUniqueEmail = true;
+    options.User.RequireUniqueEmail = false;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
 }).AddEntityFrameworkStores<FreeDbContext>();
 
 //connectionstring
@@ -37,8 +37,7 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
-app.UseDefaultFiles();
-app.UseStaticFiles();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -46,15 +45,25 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseCors("AllowAll");
 }
+//HTTPS
 app.UseHttpsRedirection();
+//STATIC
+app.UseDefaultFiles();
+app.UseStaticFiles();//point at client
+//ROUTING
+app.MapControllers();
+app.MapIdentityApi<User>();
+app.MapFallbackToFile("/index.html");
+
+//CORS
+app.UseCors("AllowAll");
+//AUTHENTICATION 
+//AUTHORIZATION
 app.UseAuthorization();
 //select the interface that has just the required method, not the one with extra
 //efcore migration, choose the one with the dash
 
-app.MapIdentityApi<User>();
 
-app.MapControllers();
-app.MapFallbackToFile("/index.html");
 app.Run();
 
 

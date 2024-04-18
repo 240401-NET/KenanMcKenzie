@@ -33,6 +33,7 @@ const SignUpForm = () => {
 
     if (response.ok) {
       console.log(data);
+      console;
       localStorage.setItem("user", dataToSend.Email);
       navigate("/signin");
     }
