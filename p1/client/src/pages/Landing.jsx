@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import backgroundImage from "../assets/greenindexcard.jpg";
 const Landing = () => {
   return (
@@ -14,9 +15,12 @@ const Landing = () => {
           <p className="mb-8 text-xl font-semibold">
             Create quizzes and get prepared for exams and qc&apos;s
           </p>
-          <button className="btn bg-zinc-600 text-amber-400 border-amber-400 w-48 text-lg hover:bg-amber-400 hover:text-zinc-600 hover:scale-110 hover:border-zinc-600">
+          <Link
+            to="/signup"
+            className="btn bg-zinc-600 text-amber-400 border-amber-400 w-48 text-lg hover:bg-amber-400 hover:text-zinc-600 hover:scale-110 hover:border-zinc-600"
+          >
             Get Started
-          </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -12,7 +12,9 @@ const NavBar = () => {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1 text-xl ">
           <li>
-            <a className="hover:scale-110 hover:text-cyan-400">Profile</a>
+            <Link to="/user" className="hover:scale-110 hover:text-cyan-400">
+              Profile
+            </Link>
           </li>
           <li>
             <details className="pr-6">
@@ -24,10 +26,7 @@ const NavBar = () => {
                   <Link to="/create">Create</Link>
                 </li>
                 <li className="hover:text-cyan-400">
-                  <a>Saved (Open drawer?)</a>
-                </li>
-                <li className="hover:text-cyan-400">
-                  <Link to="/popular">Popular</Link>
+                  <Link to="/user">Saved</Link>
                 </li>
               </ul>
             </details>

@@ -1,30 +1,24 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import NavBar from "./components/NavBar"
-import Landing from "./pages/Landing"
-import PopularQuizzes from "./pages/PopularQuizzes"
-import UserQuizzes from "./pages/UserQuizzes"
-import SignIn from "./pages/SignIn"
-import SignUp from "./pages/SignUp"
-import CreateQuiz from "./pages/CreateQuiz"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import Landing from "./pages/Landing";
+import UserQuizzes from "./pages/UserQuizzes";
+import CreateQuiz from "./pages/CreateQuiz";
+import SignUpForm from "./components/SignUpForm";
+import SignInForm from "./components/SignInForm";
 
 function App() {
-
   return (
-   
-      <Router>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/popular" element={<PopularQuizzes />} />
-          <Route path="/user" element={<UserQuizzes />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/create" element={<CreateQuiz />} />
-        </Routes>
-      </Router>
-  )
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/user" element={<UserQuizzes />} />
+        <Route path="/signin" element={<SignInForm />} />
+        <Route path="/signup" element={<SignUpForm />} />
+        <Route path="/create" element={<CreateQuiz />} />
+      </Routes>
+    </Router>
+  );
 }
 
-
-
-export default App
+export default App;

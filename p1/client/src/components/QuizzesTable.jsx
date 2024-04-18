@@ -1,7 +1,7 @@
 const QuizzesTable = () => {
   return (
     <div className="grid grid-cols-3 gap-8">
-      <div className="w-3/4 mx-auto">
+      <div className="w-3/4 mx-auto hover:scale-110">
         <div className="mockup-code ">
           <pre data-prefix="$">
             <code>Quiz Name</code>
