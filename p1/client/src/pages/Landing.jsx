@@ -1,17 +1,26 @@
-
+import backgroundImage from "../assets/greenindexcard.jpg";
 const Landing = () => {
   return (
-    <div className="hero min-h-screen" style={{backgroundImage: 'url(https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg)'}}>
-  <div className="hero-overlay bg-opacity-60"></div>
-  <div className="hero-content text-center text-neutral-content">
-    <div className="max-w-md">
-      <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
-      <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-      <button className="btn btn-primary">Get Started</button>
+    <div
+      className="hero min-h-screen"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+      }}
+    >
+      <div className="hero-overlay bg-opacity-40"></div>
+      <div className="hero-content text-center text-neutral-content">
+        <div className="max-w-lg">
+          <h1 className="mb-8 text-5xl font-bold">Welcome to Quiz App</h1>
+          <p className="mb-8 text-xl font-semibold">
+            Create quizzes and get prepared for exams and qc&apos;s
+          </p>
+          <button className="btn bg-zinc-600 text-amber-400 border-amber-400 w-48 text-lg hover:bg-amber-400 hover:text-zinc-600 hover:scale-110 hover:border-zinc-600">
+            Get Started
+          </button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-  )
-}
+  );
+};
 
-export default Landing
+export default Landing;

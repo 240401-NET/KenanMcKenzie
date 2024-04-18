@@ -1,29 +1,41 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 const NavBar = () => {
   return (
-    <div className="navbar bg-base-100">
-  <div className="flex-1">
-    <a className="btn btn-ghost text-xl">Title</a>
-  </div>
-  <div className="flex-none">
-    <ul className="menu menu-horizontal px-1">
-      <li><a>Profile</a></li>
-      <li>
-        <details>
-          <summary>
-            Quizzes
-          </summary>
-          <ul className="p-2 bg-base-100 rounded-t-none">
-            <li><Link to="/create">Create</Link></li>
-            <li><a>Saved (Open drawer?)</a></li> 
-            <li><Link to="/popular">Popular</Link></li>
-          </ul>
-        </details>
-      </li>
-    </ul>
-  </div>
-</div>
-  )
-}
+    <div className="navbar bg-zinc-600 font-mono text-amber-400">
+      <div className="flex-1">
+        <Link to="/user">
+          <h2 className="text-2xl font-bold pl-6  hover:scale-110 hover:text-cyan-400">
+            Quiz App
+          </h2>
+        </Link>
+      </div>
+      <div className="flex-none">
+        <ul className="menu menu-horizontal px-1 text-xl ">
+          <li>
+            <a className="hover:scale-110 hover:text-cyan-400">Profile</a>
+          </li>
+          <li>
+            <details className="pr-6">
+              <summary className="hover:scale-110 hover:text-cyan-400">
+                Quizzes
+              </summary>
+              <ul className="p-2 bg-zinc-600 rounded-t-none ">
+                <li className="hover:text-cyan-400">
+                  <Link to="/create">Create</Link>
+                </li>
+                <li className="hover:text-cyan-400">
+                  <a>Saved (Open drawer?)</a>
+                </li>
+                <li className="hover:text-cyan-400">
+                  <Link to="/popular">Popular</Link>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+};
 
-export default NavBar
+export default NavBar;
