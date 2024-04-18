@@ -1,7 +1,7 @@
 using server.Model;
 using server.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.HttpsPolicy;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -22,7 +22,7 @@ builder.Services.AddIdentityCore<User>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 6;
 
-    options.User.RequireUniqueEmail = false;
+    options.User.RequireUniqueEmail = true;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
 }).AddEntityFrameworkStores<FreeDbContext>();
 
@@ -32,7 +32,11 @@ builder.Services.AddIdentityCore<User>(options =>
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed(origin => true));
+    options.AddPolicy("AllowAll", builder =>
+    builder.AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true));
 });
 
 
@@ -43,7 +47,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseCors("AllowAll");
 }
 //HTTPS
 app.UseHttpsRedirection();
@@ -53,7 +56,6 @@ app.UseStaticFiles();//point at client
 //ROUTING
 app.MapControllers();
 app.MapIdentityApi<User>();
-app.MapFallbackToFile("/index.html");
 
 //CORS
 app.UseCors("AllowAll");

@@ -10,7 +10,7 @@ using System.Security.Claims;
 namespace server.Controller;
 
 [ApiController]
-[Route("/user")]
+[Route("api/[controller]")]
 public class UserController(SignInManager<User> _signInManager, UserManager<User> _userManager) : ControllerBase
 {
   private readonly SignInManager<User> signInManager = _signInManager; //api for user sign in https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1?view=aspnetcore-8.0
@@ -20,19 +20,19 @@ public class UserController(SignInManager<User> _signInManager, UserManager<User
   public async Task<ActionResult> Register(User user)
   {
     string message;
-    IdentityResult newUser = new();
+    IdentityResult result = new();
     try
     {
       User _user = new User()
       {
         Name = user.Name,
-        UserName = user.UserName,
         Email = user.Email,
+        UserName = user.UserName,
       };
-      newUser = await userManager.CreateAsync(_user); //no password needed
-      if (!newUser.Succeeded)
+      result = await userManager.CreateAsync(_user, user.PasswordHash); //no password needed
+      if (!result.Succeeded)
       {
-        return BadRequest(newUser);
+        return BadRequest(result);
       }
       message = "New user added";
     }
@@ -40,39 +40,40 @@ public class UserController(SignInManager<User> _signInManager, UserManager<User
     {
       return BadRequest("Error creating user: " + e.Message);
     }
-    return Ok(new { message = message, newUser = newUser });
+    return Ok(new { message = message, result = result });
   }
   [HttpPost("login")]
   public async Task<ActionResult> SignIn(Login loginAttempt)
   {
-    string message;
     try
     {
       User _user = await userManager.FindByEmailAsync(loginAttempt.Email);
       if (_user != null)
       {
         loginAttempt.Username = _user.UserName;
-        if(!_user.EmailConfirmed){
-										   _user.EmailConfirmed = true;
-										}
-      
-      //(TUser user, string password, bool isPersistent, bool lockoutOnFailure);
-      var result = await signInManager.PasswordSignInAsync(_user, loginAttempt.Password, loginAttempt.Remember, false);
-      if (!result.Succeeded)
-      {
-        return Unauthorized("Email or password was incorrect, please try again");
+        if (!_user.EmailConfirmed)
+        {
+          _user.EmailConfirmed = true;
+        }
+
+        //(TUser user, string password, bool isPersistent, bool lockoutOnFailure);
+        var result = await signInManager.PasswordSignInAsync(_user, loginAttempt.Password, loginAttempt.Remember, false);
+        if (!result.Succeeded)
+        {
+          return Unauthorized("Email or password was incorrect, please try again");
+        }
+        var updated = await userManager.UpdateAsync(_user);
       }
-      var updated = await userManager.UpdateAsync(_user);
-      message = "Logged in";
-      } else {
-        return BadRequest(message = "User not found");
+      else
+      {
+        return BadRequest(new { message = "User not found" });
       }
     }
     catch (Exception e)
     {
-      return BadRequest("Error logging in: " + e.Message);
+      return BadRequest(new { message = "Error logging in: " + e.Message });
     }
-    return Ok(new { message });
+    return Ok(new { message = "Login successful" });
   }
 
   [HttpGet("logout"), Authorize]//Authorize refers to having a cookie/token

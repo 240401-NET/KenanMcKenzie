@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/quizlogo.png";
-import { logOut } from "../api/userService";
+import axios from "axios";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -8,7 +8,9 @@ const NavBar = () => {
   const loggedIn = localStorage.getItem("user");
 
   const handleLogout = async () => {
-    const response = await logOut();
+    const response = await axios.get("api/user/logout", {
+      withCredentials: true,
+    });
     const data = await response.json();
     if (response.ok) {
       localStorage.removeItem("user");

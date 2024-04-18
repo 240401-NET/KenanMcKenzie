@@ -1,37 +1,40 @@
 import { useState } from "react";
 import logo from "../assets/quizlogo.png";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 
 const SignInForm = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
-  const [Username, setUserName] = useState("");
+  const [Remember, setRemember] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     const formData = {
-      Email: Email,
-      Password: Password,
-      Username: Username,
-      Remember: true,
+      Email,
+      Password,
+      Remember,
     };
-    const response = await fetch("api/user/login", {
-      method: "POST",
-      credentials: "include",
-      body: JSON.stringify(formData),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
-    const data = await response.json();
-    if (response.ok) {
-      localStorage.setItem("user", JSON.stringify(data));
-      navigate("/user");
+    console.log(formData);
+    try {
+      const response = await axios.post("api/user/login", formData, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      console.log(response);
+      const data = response.data;
+      if (response.status === 200) {
+        localStorage.setItem("user", JSON.stringify(data.Email));
+        navigate("/user");
+      }
+    } catch (error) {
+      console.log("Error", error);
     }
-    console.log("Error", data);
   };
 
   const inputClass =
@@ -56,28 +59,12 @@ const SignInForm = () => {
             <div className="mt-2">
               <input
                 id="email"
-                name="email"
+                value={Email}
                 type="email"
                 autoComplete="email"
                 required
                 className={inputClass}
                 onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-          </div>
-          <div>
-            <label htmlFor="email" className={labelClass}>
-              Username
-            </label>
-            <div className="mt-2">
-              <input
-                id="username"
-                name="username"
-                value={Username}
-                type="text"
-                required
-                className={inputClass}
-                onChange={(e) => setUserName(e.target.value)}
               />
             </div>
           </div>
@@ -100,7 +87,17 @@ const SignInForm = () => {
               />
             </div>
           </div>
-
+          <div className="flex items-center">
+            <input
+              id="remember"
+              type="checkbox"
+              checked={Remember}
+              onChange={(e) => setRemember(e.target.checked)}
+            />
+            <label htmlFor="remember" className="pl-2">
+              Remember Me
+            </label>
+          </div>
           <div className="flex justify-center">
             <button
               type="submit"

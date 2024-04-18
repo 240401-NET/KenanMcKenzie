@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 // import { signUp } from "../api/userService";
 import logo from "../assets/quizlogo.png";
+import axios from "axios";
 const SignUpForm = () => {
   //email, username, password
   const [Email, setEmail] = useState("");
@@ -20,24 +21,31 @@ const SignUpForm = () => {
       Name,
       UserName,
     };
-    const response = await fetch("api/user/register", {
-      method: "POST",
-      credentials: "include",
-      body: JSON.stringify(dataToSend),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
-    const data = await response.json();
+    console.log(dataToSend);
+    try {
+      const response = await axios.post(
+        "api/user/register",
+        JSON.stringify(dataToSend),
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      const data = await response.data;
+      console.log("Error", data.message);
 
-    if (response.ok) {
-      console.log(data);
-      console;
-      localStorage.setItem("user", dataToSend.Email);
-      navigate("/signin");
+      if (response.ok) {
+        console.log(data);
+        console;
+        localStorage.setItem("user", dataToSend.Email);
+        navigate("/signin");
+      }
+    } catch (error) {
+      console.log("Error", error);
     }
-    console.log("Error", data.message);
   };
 
   const inputClass =
@@ -124,7 +132,7 @@ const SignUpForm = () => {
             </div>
             <div className="mt-2">
               <input
-                id="password"
+                id="passwordconfirm"
                 type="password"
                 value={confirmPassword}
                 required

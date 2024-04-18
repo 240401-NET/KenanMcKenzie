@@ -8,7 +8,6 @@ C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\
 C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\Azure.Identity.dll
 C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\Humanizer.dll
-C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -142,7 +141,3 @@ C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\
 C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
-C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
-C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
-C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\Newtonsoft.Json.dll
-C:\Users\Owner\Desktop\revature_csharp\KenanMcKenzie\p1\server\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
