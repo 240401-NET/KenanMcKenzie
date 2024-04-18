@@ -12,6 +12,12 @@ public class QuizRepository : IQuizRepository
   {
     _context = context;
   }
+  //GETALL -done
+  //GETONE -done
+  //GETBYNAME -done
+  //POST -done
+  //DELETEBYID -done
+  //PUTBYID
 
   public async Task<Quiz> CreateQuiz(Quiz quiz)
   {
@@ -30,6 +36,31 @@ public class QuizRepository : IQuizRepository
   //one
   public async Task<Quiz> GetQuiz(int id)
   {
-    return await _context.Quizzes.Include(u => u.CreatedByNavigation).FirstOrDefaultAsync(q => q.QuizId == id);
+    return await _context.Quizzes.FirstOrDefaultAsync(q => q.QuizId == id);
+  }
+
+  public async Task<List<Quiz>> GetQuizByTag(string tagName)
+  {
+    var quizzes = await _context.Quizzes
+    .Include(q => q.Tags)
+    .Where(q => q.Tags.Any(t => t.TagName.Equals(tagName, StringComparison.OrdinalIgnoreCase)))
+    .ToListAsync();
+    foreach (Quiz quiz in quizzes)
+    {
+      Console.WriteLine(quiz.Title);
+    }
+    return quizzes;
+  }
+
+  public async Task<Quiz> DeleteQuiz(int id)
+  {
+    var quiz = await _context.Quizzes.FirstOrDefaultAsync(q => q.QuizId == id);
+    if (quiz == null)
+    {
+      throw new Exception("Quiz not found");
+    }
+    _context.Quizzes.Remove(quiz);
+    await _context.SaveChangesAsync();
+    return quiz;
   }
 }

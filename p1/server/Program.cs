@@ -1,6 +1,8 @@
 using server.Model;
 using server.Data;
 using Microsoft.EntityFrameworkCore;
+using server.Interface;
+using server.Repository;
 using Microsoft.AspNetCore.HttpsPolicy;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,7 @@ builder.Services.AddDbContext<FreeDbContext>(x => x.UseSqlServer(connectionStrin
 //make services and add them to builder
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddScoped<IQuizRepository, QuizRepository>();
 builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<FreeDbContext>();
 builder.Services.AddIdentityCore<User>(options =>
 {
