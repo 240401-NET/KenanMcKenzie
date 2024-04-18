@@ -34,3 +34,9 @@ export const signUp = (name, email, password) => {
     }
   );
 };
+
+export const logOut = () => {
+  return axios.get(`${API_URL}/user/logout`, {
+    withCredentials: true,
+  });
+};

@@ -8,11 +8,13 @@ const Landing = () => {
         backgroundImage: `url(${backgroundImage})`,
       }}
     >
-      <div className="hero-overlay bg-opacity-40"></div>
-      <div className="hero-content text-center text-neutral-content">
-        <div className="max-w-lg">
-          <h1 className="mb-8 text-5xl font-bold">Welcome to Quiz App</h1>
-          <p className="mb-8 text-xl font-semibold">
+      <div className="hero-overlay bg-opacity-20"></div>
+      <div className="hero-content text-center text-neutral">
+        <div className="max-w-x2l">
+          <h1 className="mb-14 text-6xl font-bold">
+            Welcome to <span className="text-amber-400">Quiz App</span>
+          </h1>
+          <p className="mb-9 text-2xl font-semibold">
             Create quizzes and get prepared for exams and qc&apos;s
           </p>
           <Link
