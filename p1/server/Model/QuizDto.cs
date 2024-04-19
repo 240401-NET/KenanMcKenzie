@@ -10,5 +10,5 @@ public class QuizDTO
 
   public List<string> Tags { get; set; }
 
-  public List<Question> Questions { get; set; }
+  public List<QuestionDTO> Questions { get; set; }
 }

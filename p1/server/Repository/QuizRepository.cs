@@ -5,19 +5,9 @@ using server.Interface;
 using Microsoft.EntityFrameworkCore;
 namespace server.Repository;
 
-public class QuizRepository : IQuizRepository
+public class QuizRepository(FreeDbContext context) : IQuizRepository
 {
-  private readonly FreeDbContext _context;
-  public QuizRepository(FreeDbContext context)
-  {
-    _context = context;
-  }
-  //GETALL -done
-  //GETONE -done
-  //GETBYNAME -done
-  //POST -done
-  //DELETEBYID -done
-  //PUTBYID
+  private readonly FreeDbContext _context = context;
 
   public async Task<Quiz> CreateQuiz(Quiz quiz)
   {
@@ -61,5 +51,17 @@ public class QuizRepository : IQuizRepository
     _context.Quizzes.Remove(quiz);
     await _context.SaveChangesAsync();
     return quiz;
+  }
+
+  public async Task<Quiz> AddQuiz(Quiz quiz)
+  {
+    _context.Quizzes.Add(quiz);
+    await _context.SaveChangesAsync();
+
+    return quiz;
+  }
+  public async Task<int> SaveChangesAsync()
+  {
+    return await _context.SaveChangesAsync();
   }
 }

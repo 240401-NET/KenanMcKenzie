@@ -13,7 +13,5 @@ public partial class Question
 
     public string? Example { get; set; }
 
-    public virtual Quiz BelongsToNavigation { get; set; } = null!;
-
     public virtual ICollection<QuestionOption> QuestionOptions { get; set; } = new List<QuestionOption>();
 }

@@ -20,7 +20,9 @@ public class QuestionRepository : IQuestionRepository
     await _context.SaveChangesAsync();
     return question;
   }
-
-
+  public void AddQuestion(Question question)
+  {
+    _context.Questions.Add(question);
+  }
 
 }

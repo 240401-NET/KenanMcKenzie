@@ -1,6 +1,5 @@
 using server.Interface;
 using server.Model;
-using server.Repository;
 
 namespace server.Service;
 
@@ -8,55 +7,49 @@ public class QuizService : IQuizService
 {
   private readonly IQuizRepository _quizRepository;
   private readonly IUserRepository _userRepository;
-  private readonly IQuestionRepository _questionRepository;
-  public QuizService(IQuizRepository quizRepository, IUserRepository userRepository, IQuestionRepository questionRepository)
+  public QuizService(IQuizRepository quizRepository, IUserRepository userRepository)
   {
-    _questionRepository = questionRepository;
     _quizRepository = quizRepository;
     _userRepository = userRepository;
   }
 
-  public async Task<Quiz> CreateQuiz(QuizDTO quizDto)
+  public async Task<Quiz> CreateQuiz(QuizDTO quizDTO)
   {
-    var user = await _userRepository.GetUserByName(quizDto.CreatedBy);
+    var user = await _userRepository.GetUserByName(quizDTO.CreatedBy);
 
-    if (quizDto.Questions.Count == 0)
+    if (quizDTO.Questions.Count == 0)
     {
       throw new FormatException("Quiz must have at least one question");
     }
-    if (quizDto.Title.Length == 0 || quizDto.Title == null)
+    if (quizDTO.Title.Length == 0 || quizDTO.Title == null)
     {
       throw new FormatException("Quiz must have a title");
     }
-    if (quizDto.Tags.Count > 3)
+    if (quizDTO.Tags.Count > 3)
     {
       throw new FormatException("Maximum number of tags exceeded");
     }
 
     Quiz quiz = new Quiz
     {
-      Title = quizDto.Title,
-      Description = quizDto.Description,
+      Title = quizDTO.Title,
+      Description = quizDTO.Description,
       CreatedBy = user.Id,
-      Tags = quizDto.Tags.Select(tag => new Tag { TagName = tag }).ToList(),
+      Tags = quizDTO.Tags.Select(tag => new Tag { TagName = tag }).ToList(),
     };
 
-    var newQuiz = await _quizRepository.CreateQuiz(quiz);
-
-    foreach (var question in quizDto.Questions)
+    List<Question> questions = quizDTO.Questions.Select(_questionDTO => new Question
     {
-      question.BelongsToNavigation = newQuiz;
-      await _questionRepository.AddQuestionAsync(question);
-    }
+      QuestionText = _questionDTO.QuestionText,
+      Example = _questionDTO.Example,
+    }).ToList();
 
-    return newQuiz;
+    await _quizRepository.SaveChangesAsync();
+
+    return quiz;
   }
 
-  public async Task<List<Quiz>> GetQuizzes(int userId)
-  {
 
-    return await _quizRepository.GetQuizzes(userId);
-  }
 
   public async Task<Quiz> GetQuiz(int id)
   {

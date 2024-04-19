@@ -11,4 +11,6 @@ public interface IQuizRepository
   Task<Quiz> GetQuiz(int id);
   Task<List<Quiz>> GetQuizByTag(string tagName);
   Task<Quiz> DeleteQuiz(int id);
+  Task<Quiz> AddQuiz(Quiz quiz);
+  Task<int> SaveChangesAsync();
 }

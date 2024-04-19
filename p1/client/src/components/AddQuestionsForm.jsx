@@ -17,7 +17,7 @@ const AddQuestionsForm = ({ quizData }) => {
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     console.log("userInfo: ", userInfo);
-    setUsername(userInfo.userName);
+    setUsername(userInfo.name);
   }, []);
   const navigate = useNavigate();
 

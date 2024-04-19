@@ -38,11 +38,6 @@ public partial class FreeDbContext : IdentityDbContext<User>
             entity.Property(e => e.QuestionText)
                 .HasMaxLength(100)
                 .HasColumnName("questionText");
-
-            entity.HasOne(d => d.BelongsToNavigation).WithMany(p => p.Questions)
-                .HasForeignKey(d => d.BelongsTo)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Question__belong__6754599E");
         });
 
         modelBuilder.Entity<QuestionOption>(entity =>

@@ -197,10 +197,13 @@ namespace server.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("questionText");
 
+                    b.Property<int?>("QuizId")
+                        .HasColumnType("int");
+
                     b.HasKey("QuestionId")
                         .HasName("PK__Question__2EC21549A14D8346");
 
-                    b.HasIndex("BelongsTo");
+                    b.HasIndex("QuizId");
 
                     b.ToTable("Question", "quiz_schema");
                 });
@@ -437,13 +440,9 @@ namespace server.Migrations
 
             modelBuilder.Entity("server.Model.Question", b =>
                 {
-                    b.HasOne("server.Model.Quiz", "BelongsToNavigation")
+                    b.HasOne("server.Model.Quiz", null)
                         .WithMany("Questions")
-                        .HasForeignKey("BelongsTo")
-                        .IsRequired()
-                        .HasConstraintName("FK__Question__belong__6754599E");
-
-                    b.Navigation("BelongsToNavigation");
+                        .HasForeignKey("QuizId");
                 });
 
             modelBuilder.Entity("server.Model.QuestionOption", b =>
