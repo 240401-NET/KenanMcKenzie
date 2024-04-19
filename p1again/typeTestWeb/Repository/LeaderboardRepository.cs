@@ -13,4 +13,19 @@ public class LeaderboardRepository : ILeaderboardRepository
   {
     return _context.Games.OrderByDescending(g => g.Wpm).ToList();
   }
+
+  public List<Game> GetLeaderboardByUserId(int userId)
+  {
+    return _context.Games.Where(g => g.UserId == userId).OrderByDescending(g => g.Wpm).ToList();
+  }
+
+  public List<Game> GetLeaderboardByDate(DateTime date)
+  {
+    return _context.Games.Where(g => g.GameDate == date).OrderByDescending(g => g.Wpm).ToList();
+  }
+
+  public Game GetGameById(int gameId)
+  {
+    return _context.Games.FirstOrDefault(g => g.GameId == gameId);
+  }
 }

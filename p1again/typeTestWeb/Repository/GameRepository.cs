@@ -1,7 +1,6 @@
 namespace typeTestWeb.Repository;
 
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -51,6 +50,14 @@ public class GameRepository : IGameRepository
       _context.Games.Remove(game);
       await _context.SaveChangesAsync();
     }
+  }
+
+  public async Task<IEnumerable<Game>> GetGamesByUserIdAsync(int userId)
+  {
+    return await _context.Games
+        .Include(g => g.User)  // Include the User navigation property if needed
+        .Where(g => g.UserId == userId)
+        .ToListAsync();
   }
 }
 

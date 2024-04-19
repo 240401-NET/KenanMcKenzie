@@ -1,13 +1,16 @@
 using Microsoft.EntityFrameworkCore;
+using typeTestWeb.Interface;
 using typeTestWeb.Models;
+using typeTestWeb.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddDbContext<FreeDBContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString"))); builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddDbContext<FreeDBContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<ILeaderboardRepository, LeaderboardRepository>();
+builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 builder.Services.AddSwaggerGen();
-
 
 builder.Services.AddCors((options) =>
 {
