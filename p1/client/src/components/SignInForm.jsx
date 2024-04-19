@@ -27,9 +27,11 @@ const SignInForm = () => {
         },
       });
       console.log(response);
+
       const data = response.data;
+      console.log(data);
       if (response.status === 200) {
-        localStorage.setItem("user", JSON.stringify(data.Email));
+        localStorage.setItem("user", JSON.stringify(Email));
         navigate("/user");
       }
     } catch (error) {

@@ -3,10 +3,14 @@ using server.Data;
 using Microsoft.EntityFrameworkCore;
 using server.Interface;
 using server.Repository;
+using server.Service;
 using Microsoft.AspNetCore.HttpsPolicy;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        }); ;
 
 builder.Services.AddAuthorization();
 var connectionString = builder.Configuration["connectionstring"];
@@ -16,6 +20,7 @@ builder.Services.AddDbContext<FreeDbContext>(x => x.UseSqlServer(connectionStrin
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddScoped<IQuizRepository, QuizRepository>();
+builder.Services.AddScoped<IQuizService, QuizService>();
 builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<FreeDbContext>();
 builder.Services.AddIdentityCore<User>(options =>
 {

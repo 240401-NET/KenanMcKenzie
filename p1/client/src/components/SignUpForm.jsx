@@ -35,12 +35,11 @@ const SignUpForm = () => {
         }
       );
       const data = await response.data;
-      console.log("Error", data.message);
 
       if (response.ok) {
         console.log(data);
         console;
-        localStorage.setItem("user", dataToSend.Email);
+        localStorage.setItem("user", JSON.stringify(dataToSend.Email));
         navigate("/signin");
       }
     } catch (error) {

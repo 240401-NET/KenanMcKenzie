@@ -11,8 +11,10 @@ const NavBar = () => {
     const response = await axios.get("api/user/logout", {
       withCredentials: true,
     });
-    const data = await response.json();
-    if (response.ok) {
+    console.log(response.status);
+    const data = await response.data;
+    // console.log(data.);
+    if (response.status === 200) {
       localStorage.removeItem("user");
       navigate("/");
     } else {
@@ -34,7 +36,7 @@ const NavBar = () => {
           to="/"
           className="flex hover:scale-110 hover:text-cyan-400 items-center"
         >
-          <h2 className="text-2xl font-bold pl-10 pr-4  ">Quiz App</h2>
+          <h2 className="text-2xl font-bold pl-10 pr-4">Quiz App</h2>
           <img src={logo} alt="logo" className="h-12 w-12" />
         </Link>
       </div>
@@ -47,10 +49,26 @@ const NavBar = () => {
               </summary>
               <ul className="p-2 bg-zinc-600 rounded-t-none ">
                 <li className="hover:text-cyan-400">
-                  <Link to="/create">Create</Link>
+                  {loggedIn ? (
+                    <Link id="userroute" to="/create">
+                      Create
+                    </Link>
+                  ) : (
+                    <Link id="userroute" to="/signin">
+                      Create
+                    </Link>
+                  )}
                 </li>
                 <li className="hover:text-cyan-400">
-                  <Link to="/user">Saved</Link>
+                  {loggedIn ? (
+                    <Link id="userroute" to="/user">
+                      Saved
+                    </Link>
+                  ) : (
+                    <Link id="userroute" to="/signin">
+                      Saved
+                    </Link>
+                  )}
                 </li>
               </ul>
             </details>

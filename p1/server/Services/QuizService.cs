@@ -1,12 +1,13 @@
+using server.Interface;
 using server.Model;
 using server.Repository;
 
 namespace server.Service;
 
-public class QuizService
+public class QuizService : IQuizService
 {
-  private readonly QuizRepository _quizRepository;
-  public QuizService(QuizRepository quizRepository)
+  private readonly IQuizRepository _quizRepository;
+  public QuizService(IQuizRepository quizRepository)
   {
     _quizRepository = quizRepository;
   }
@@ -21,6 +22,11 @@ public class QuizService
     {
       throw new FormatException("Quiz must have a title");
     }
+    if (quiz.Tags.Count > 3)
+    {
+      throw new FormatException("Maximum number of tags exceeded");
+    }
+
 
     return await _quizRepository.CreateQuiz(quiz);
   }
@@ -40,4 +46,13 @@ public class QuizService
     return await _quizRepository.GetQuiz(id);
   }
 
+  ///////
+  public async Task<Quiz> DeleteQuiz(int id)
+  {
+    if (id == 0)
+    {
+      throw new Exception("Invalid id");
+    }
+    return await _quizRepository.DeleteQuiz(id);
+  }
 }

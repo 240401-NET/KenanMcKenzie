@@ -2,11 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using server.Data;
 using server.Model;
 using server.Service;
-using System.Linq;
-using System.Collections.Generic;
-using System;
 using server.Interface;
-using server.Repository;
 namespace server.Controller;
 
 
@@ -20,8 +16,8 @@ public class QuizController : ControllerBase //ControllerBase is for controllers
   //will need to move to quizrepository because need to get 'public' quizzes for all users, can't access ALL directly, maybe for later project
   //Register -> post
   private readonly IQuizRepository _quizRepository;
-  private readonly QuizService _quizService;
-  public QuizController(IQuizRepository quizRepository, FreeDbContext _context, QuizService quizService)
+  private readonly IQuizService _quizService;
+  public QuizController(IQuizRepository quizRepository, FreeDbContext _context, IQuizService quizService)
   {
     _quizRepository = quizRepository;
     _quizService = quizService;
@@ -53,7 +49,7 @@ public class QuizController : ControllerBase //ControllerBase is for controllers
     }
   }
 
-  [HttpGet]
+  [HttpGet("tag/{tagName}")]
   public IActionResult GetQuizByTag([FromRoute] string tagName)
   {
     if (tagName == null)
@@ -73,12 +69,12 @@ public class QuizController : ControllerBase //ControllerBase is for controllers
   //post
   //append questions and validate in client.. Can add foreach for questions in quiz verifying
   [HttpPost]
-  public IActionResult CreateQuiz([FromBody] Quiz quiz)
+  public async Task<IActionResult> CreateQuiz([FromBody] Quiz quiz)
   {
     var created = _quizService.CreateQuiz(quiz);
     if (created.IsCompletedSuccessfully)
     {
-      return Ok(created);
+      return Ok("Quiz created");
     }
     else
     {

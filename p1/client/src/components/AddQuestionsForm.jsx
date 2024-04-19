@@ -1,5 +1,7 @@
+import axios from "axios";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const AddQuestionsForm = ({ quizData }) => {
   const [questionText, setQuestionText] = useState("");
   const [options, setOptions] = useState([
@@ -10,14 +12,25 @@ const AddQuestionsForm = ({ quizData }) => {
   ]);
   const [example, setExample] = useState("");
   const [questionArray, setQuestionArray] = useState([]);
+  // const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("userInfo")));
+
+  const navigate = useNavigate();
 
   const handleAddQuestion = (e) => {
     e.preventDefault();
     const newQuestion = {
+      // CreatedBy: userInfo.CreatedBy,
       questionText,
       options,
       example,
     };
+    const answer = (element) => element.IsAnswer === true;
+    const answerPresent = options.findIndex(answer);
+    if (answerPresent == -1) {
+      alert("Please select an answer");
+      return;
+    }
+
     setQuestionArray([...questionArray, newQuestion]);
     handleReset();
 
@@ -35,10 +48,40 @@ const AddQuestionsForm = ({ quizData }) => {
     setExample("");
   };
 
-  const handleAppendQuestinos = (e) => {
-    e.preventDefault();
+  const handleAppendQuestions = () => {
     quizData.questions = questionArray;
     console.log("quizData: ", quizData);
+  };
+
+  const handleSubmitQuiz = async (e) => {
+    e.preventDefault();
+    handleAppendQuestions();
+    // const formData = {
+    //   CreatedBy: user.CreatedBy,
+    // };
+    const response = await axios.post("api/quiz", JSON.stringify(quizData), {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    const data = await response.data;
+    console.log(data);
+    if (response.ok) {
+      console.log(data);
+      alert("Quiz created successfully");
+      navigate("/user");
+    } else {
+      console.error(data.message);
+      return (
+        <div className="toast toast-top toast-center">
+          <div className="error error-info">
+            <span>Try again.</span>
+          </div>
+        </div>
+      );
+    }
   };
 
   return (
@@ -146,11 +189,11 @@ const AddQuestionsForm = ({ quizData }) => {
               Add Question
             </button>
           </div>
-          <div className="flex justify-center w-full">
+          <div className="flex justify-center w-full pt-6">
             <button
               type="button"
-              onClick={handleAppendQuestinos}
-              className="bg-zinc-600 text-amber-400 border-amber-400 w-48 text-lg hover:bg-amber-400 hover:text-zinc-600 hover:scale-110 hover:border-zinc-600"
+              onClick={handleSubmitQuiz}
+              className="bg-zinc-600 text-amber-400 border-amber-400 w-48 text-lg hover:bg-amber-400 hover:text-zinc-600 hover:scale-110 hover:border-zinc-600 rounded-lg py-1.5"
             >
               Done
             </button>
