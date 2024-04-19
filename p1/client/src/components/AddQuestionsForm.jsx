@@ -1,6 +1,6 @@
 import axios from "axios";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 const AddQuestionsForm = ({ quizData }) => {
   const [questionText, setQuestionText] = useState("");
@@ -12,8 +12,13 @@ const AddQuestionsForm = ({ quizData }) => {
   ]);
   const [example, setExample] = useState("");
   const [questionArray, setQuestionArray] = useState([]);
-  // const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("userInfo")));
+  const [username, setUsername] = useState();
 
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    console.log("userInfo: ", userInfo);
+    setUsername(userInfo.userName);
+  }, []);
   const navigate = useNavigate();
 
   const handleAddQuestion = (e) => {
@@ -56,10 +61,16 @@ const AddQuestionsForm = ({ quizData }) => {
   const handleSubmitQuiz = async (e) => {
     e.preventDefault();
     handleAppendQuestions();
-    // const formData = {
-    //   CreatedBy: user.CreatedBy,
-    // };
-    const response = await axios.post("api/quiz", JSON.stringify(quizData), {
+    console.log("username: ", username);
+    const formData = {
+      Title: quizData.quizTitle,
+      Tags: quizData.tagArray,
+      CreatedBy: username,
+      Description: quizData.description,
+      Questions: quizData.questions,
+    };
+    console.log(formData.Description);
+    const response = await axios.post("api/quiz", JSON.stringify(formData), {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",

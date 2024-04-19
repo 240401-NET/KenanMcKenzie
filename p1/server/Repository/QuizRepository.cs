@@ -29,14 +29,13 @@ public class QuizRepository : IQuizRepository
   //all
   public async Task<List<Quiz>> GetQuizzes(int userId)
   {
-    var quizzes = _context.Quizzes.ToList();
-    return quizzes;
+    return _context.Quizzes.ToList();
   }
 
   //one
   public async Task<Quiz> GetQuiz(int id)
   {
-    return await _context.Quizzes.FirstOrDefaultAsync(q => q.QuizId == id);
+    return await _context.Quizzes.FirstOrDefaultAsync(q => q.QuizId == id) ?? throw new Exception("Quiz not found");
   }
 
   public async Task<List<Quiz>> GetQuizByTag(string tagName)

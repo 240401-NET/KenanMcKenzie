@@ -7,28 +7,49 @@ namespace server.Service;
 public class QuizService : IQuizService
 {
   private readonly IQuizRepository _quizRepository;
-  public QuizService(IQuizRepository quizRepository)
+  private readonly IUserRepository _userRepository;
+  private readonly IQuestionRepository _questionRepository;
+  public QuizService(IQuizRepository quizRepository, IUserRepository userRepository, IQuestionRepository questionRepository)
   {
+    _questionRepository = questionRepository;
     _quizRepository = quizRepository;
+    _userRepository = userRepository;
   }
 
-  public async Task<Quiz> CreateQuiz(Quiz quiz)
+  public async Task<Quiz> CreateQuiz(QuizDTO quizDto)
   {
-    if (quiz.Questions.Count == 0 || quiz.Questions == null)
+    var user = await _userRepository.GetUserByName(quizDto.CreatedBy);
+
+    if (quizDto.Questions.Count == 0)
     {
       throw new FormatException("Quiz must have at least one question");
     }
-    if (quiz.Title.Length == 0 || quiz.Title == null)
+    if (quizDto.Title.Length == 0 || quizDto.Title == null)
     {
       throw new FormatException("Quiz must have a title");
     }
-    if (quiz.Tags.Count > 3)
+    if (quizDto.Tags.Count > 3)
     {
       throw new FormatException("Maximum number of tags exceeded");
     }
 
+    Quiz quiz = new Quiz
+    {
+      Title = quizDto.Title,
+      Description = quizDto.Description,
+      CreatedBy = user.Id,
+      Tags = quizDto.Tags.Select(tag => new Tag { TagName = tag }).ToList(),
+    };
 
-    return await _quizRepository.CreateQuiz(quiz);
+    var newQuiz = await _quizRepository.CreateQuiz(quiz);
+
+    foreach (var question in quizDto.Questions)
+    {
+      question.BelongsToNavigation = newQuiz;
+      await _questionRepository.AddQuestionAsync(question);
+    }
+
+    return newQuiz;
   }
 
   public async Task<List<Quiz>> GetQuizzes(int userId)

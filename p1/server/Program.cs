@@ -21,6 +21,7 @@ builder.Services.AddDbContext<FreeDbContext>(x => x.UseSqlServer(connectionStrin
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddScoped<IQuizRepository, QuizRepository>();
 builder.Services.AddScoped<IQuizService, QuizService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<FreeDbContext>();
 builder.Services.AddIdentityCore<User>(options =>
 {

@@ -69,7 +69,7 @@ public class QuizController : ControllerBase //ControllerBase is for controllers
   //post
   //append questions and validate in client.. Can add foreach for questions in quiz verifying
   [HttpPost]
-  public async Task<IActionResult> CreateQuiz([FromBody] Quiz quiz)
+  public async Task<IActionResult> CreateQuiz([FromBody] QuizDTO quiz)
   {
     var created = _quizService.CreateQuiz(quiz);
     if (created.IsCompletedSuccessfully)
