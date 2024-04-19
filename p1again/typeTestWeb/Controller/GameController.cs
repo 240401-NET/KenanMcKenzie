@@ -2,16 +2,12 @@ namespace typeTestWeb.Controller;
 using typeTestWeb.Interface;
 using typeTestWeb.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 
-using System;
 
 [ApiController]
 [Route("api/[controller]")]
-class GameController
+public class GameController : ControllerBase
 {
   private readonly IGameRepository _gameRepository;
   public GameController(IGameRepository gameRepository)
@@ -25,17 +21,22 @@ class GameController
     return Ok(_gameRepository.GetAllGamesAsync());
   }
 
+
   [HttpGet("{gameId}")]
   public async Task<IActionResult> GetGameById(int gameId)
   {
-    var game = await _gameRepository.GetGameByIdAsync(gameId);
-    if (game is null)
+    try
     {
-      return BadRequest("Game not found.");
-    }
-    else
-    {
+      var game = await _gameRepository.GetGameByIdAsync(gameId);
       return Ok(game);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+    catch
+    {
+      return BadRequest("An error occurred.");
     }
   }
 

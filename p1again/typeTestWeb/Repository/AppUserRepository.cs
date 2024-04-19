@@ -1,6 +1,5 @@
 using typeTestWeb.Models;
 using typeTestWeb.Interface;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 namespace typeTestWeb.Repository;
 
@@ -13,7 +12,15 @@ public class AppUserRepository : IAppUserRepository
   }
   public async Task<AppUser> GetUserById(int id)
   {
-    return await _context.AppUsers.FindAsync(id);
+    try
+    {
+      var user = await _context.AppUsers.FindAsync(id);
+      return user;
+    }
+    catch (Exception e)
+    {
+      throw new Exception("User not found", e);
+    }
   }
   public async Task<List<AppUser>> GetAllUsers()
   {
@@ -21,7 +28,15 @@ public class AppUserRepository : IAppUserRepository
   }
   public async Task<AppUser> GetUserByUserName(string userName)
   {
-    return await _context.AppUsers.FirstOrDefaultAsync(u => u.Username == userName);
+    try
+    {
+      var user = await _context.AppUsers.FirstOrDefaultAsync(u => u.Username == userName);
+      return user;
+    }
+    catch (Exception e)
+    {
+      throw new Exception("User not found", e);
+    }
   }
 
   public async Task<AppUser> AddUser(AppUser user)
