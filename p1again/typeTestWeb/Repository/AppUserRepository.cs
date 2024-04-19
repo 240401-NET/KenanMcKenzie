@@ -1,7 +1,10 @@
 using typeTestWeb.Models;
+using typeTestWeb.Interface;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 namespace typeTestWeb.Repository;
 
-public class AppUserRepository
+public class AppUserRepository : IAppUserRepository
 {
   private readonly FreeDBContext _context;
   public AppUserRepository(FreeDBContext context)
@@ -12,18 +15,15 @@ public class AppUserRepository
   {
     return await _context.AppUsers.FindAsync(id);
   }
-  public async Task<AppUser> GetUserByEmail(string email)
+  public async Task<List<AppUser>> GetAllUsers()
   {
-    return await _context.AppUsers.FirstOrDefaultAsync(u => u.Email == email);
+    return await _context.AppUsers.ToListAsync();
   }
   public async Task<AppUser> GetUserByUserName(string userName)
   {
-    return await _context.AppUsers.FirstOrDefaultAsync(u => u.UserName == userName);
+    return await _context.AppUsers.FirstOrDefaultAsync(u => u.Username == userName);
   }
-  public async Task<AppUser> GetUserByUserNameAndPassword(string userName, string password)
-  {
-    return await _context.AppUsers.FirstOrDefaultAsync(u => u.UserName == userName && u.Password == password);
-  }
+
   public async Task<AppUser> AddUser(AppUser user)
   {
     _context.AppUsers.Add(user);
