@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMcKenzie\\p1\\server\\server.csproj": {}
+    "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMckenzie\\p1\\server\\server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMcKenzie\\p1\\server\\server.csproj": {
+    "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMckenzie\\p1\\server\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMcKenzie\\p1\\server\\server.csproj",
+        "projectUniqueName": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMckenzie\\p1\\server\\server.csproj",
         "projectName": "server",
-        "projectPath": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMcKenzie\\p1\\server\\server.csproj",
+        "projectPath": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMckenzie\\p1\\server\\server.csproj",
         "packagesPath": "C:\\Users\\Owner\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMcKenzie\\p1\\server\\obj\\",
+        "outputPath": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMckenzie\\p1\\server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Owner\\AppData\\Roaming\\NuGet\\NuGet.Config"

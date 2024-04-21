@@ -2,18 +2,21 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 
-const QuizzesTable = () => {
+const QuizzesTable = ({ userId }) => {
   const [quizzes, setQuizzes] = useState([]);
+  console.log("brucelee usrId", userId);
   useEffect(() => {
-    const fetchQuizzes = async () => {
+    const fetchQuizzes = async (userId) => {
+      console.log("userId", userId);
       try {
-        const response = await axios.get("/api/quiz", {
+        const response = await axios.get(`/api/quiz/${userId}`, {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
           },
         });
         const data = await response.data;
+        console.log("data", data);
         setQuizzes(data);
         console.log(quizzes);
         localStorage.setItem("quizzes", JSON.stringify(data.result));
@@ -22,8 +25,8 @@ const QuizzesTable = () => {
         console.error(error);
       }
     };
-    fetchQuizzes();
-  }, []);
+    fetchQuizzes(userId);
+  }, [userId]);
   return (
     <div className="grid grid-cols-3 gap-8">
       {quizzes.map((quiz) => (
@@ -62,4 +65,5 @@ export default QuizzesTable;
 
 QuizzesTable.propTypes = {
   userInfo: PropTypes.object,
+  userId: PropTypes.string,
 };

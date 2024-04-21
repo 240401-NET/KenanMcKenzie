@@ -6,7 +6,6 @@ import axios from "axios";
 const UserQuizzes = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [userData, setUserData] = useState({});
-
   useEffect(() => {
     axios
       .get("/api/user/verify", { withCredentials: true })
@@ -26,7 +25,7 @@ const UserQuizzes = () => {
         localStorage.removeItem("user");
         localStorage.removeItem("userInfo");
       });
-  }, []);
+  }, [authenticated]);
   return (
     <div className="bg-neutral-content max-w-full h-screen">
       {authenticated ? (
@@ -35,7 +34,7 @@ const UserQuizzes = () => {
         <Header title="User Quizzes" />
       )}
       <div className="py-16 mx-24 border border-zinc-200 bg-zinc-500 rounded-lg shadow-xl">
-        <QuizzesTable />
+        <QuizzesTable userId={userData.id} />
       </div>
     </div>
   );

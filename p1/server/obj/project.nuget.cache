@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1m3e8J3T1GhMij7/TE/nCtPM0mK6Ig5YhtNaN+qKyeSDJJwl+AFCe276Z+i1CoPe9rh1DCrciMfe2UXx/Y/uCQ==",
+  "dgSpecHash": "Tmss0e9JC24qg+Z5AFQQUVF+0hhCkdb8LbmJm++q+DvelCs+fa76ipZCUB5WYwf4mypZCZX+ziZScF8eLikV/g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMcKenzie\\p1\\server\\server.csproj",
+  "projectFilePath": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMckenzie\\p1\\server\\server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Owner\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Owner\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

@@ -19,14 +19,24 @@ public class QuizRepository(FreeDbContext context) : IQuizRepository
   //all
   public async Task<List<Quiz>> GetQuizzes()
   {
-
     var quizzes = _context.Quizzes
     .Include(u => u.CreatedByNavigation)
     .Include(q => q.Tags)
     .Include(q => q.Questions)
     .ThenInclude(q => q.QuestionOptions);
     return await quizzes.ToListAsync();
+  }
 
+  public async Task<List<Quiz>> GetQuizzesByUser(string userId)
+  {
+    Console.WriteLine("***************************userId" + userId);
+    var quizzes = _context.Quizzes
+    .Include(u => u.CreatedByNavigation)
+    .Include(q => q.Tags)
+    .Include(q => q.Questions)
+    .ThenInclude(q => q.QuestionOptions)
+    .Where(q => q.CreatedBy == userId);
+    return await quizzes.ToListAsync();
   }
 
   //one

@@ -24,14 +24,20 @@ public class QuizController : ControllerBase //ControllerBase is for controllers
   //get
   //ALL
   [HttpGet]
-  public async Task<IActionResult> GetAllQuizzesForUser() //controller actions return ActionResults
+  public async Task<IActionResult> GetAllQuizzes() //controller actions return ActionResults
   {
     var quizzes = await _quizRepository.GetQuizzes();
     return Ok(quizzes);
   }
+  [HttpGet("{userId}")]
+  public async Task<IActionResult> GetQuizzesByUser([FromRoute] string userId)
+  {
+    var quizzes = await _quizRepository.GetQuizzesByUser(userId);
+    return Ok(quizzes);
+  }
   //ONE
-  [HttpGet("{id}")]
-  public IActionResult GetQuizById([FromRoute] int id)
+  [HttpGet("{userId}/{id}")]
+  public IActionResult GetQuizById([FromRoute] int userId, int id)
   {
     if (id == 0)
     {
