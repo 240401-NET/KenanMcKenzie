@@ -13,10 +13,8 @@ public class QuizService : IQuizService
     _userRepository = userRepository;
   }
 
-  public async Task<Quiz> CreateQuiz(QuizDTO quizDTO)
+  public async Task<int> CreateQuiz(QuizDTO quizDTO)
   {
-    var user = await _userRepository.GetUserByName(quizDTO.CreatedBy);
-
     if (quizDTO.Questions.Count == 0)
     {
       throw new FormatException("Quiz must have at least one question");
@@ -29,24 +27,25 @@ public class QuizService : IQuizService
     {
       throw new FormatException("Maximum number of tags exceeded");
     }
-
-    Quiz quiz = new Quiz
+    var quiz = new Quiz
     {
       Title = quizDTO.Title,
       Description = quizDTO.Description,
-      CreatedBy = user.Id,
-      Tags = quizDTO.Tags.Select(tag => new Tag { TagName = tag }).ToList(),
+      CreatedBy = quizDTO.CreatedBy,
+      CreatedAt = DateTime.UtcNow,
+      UpdatedAt = DateTime.UtcNow,
+      Questions = quizDTO.Questions.Select(q => new Question
+      {
+        QuestionText = q.QuestionText,
+        QuestionOptions = q.Options.Select(opt => new QuestionOption
+        {
+          OptionText = opt.OptionText,
+          IsAnswer = opt.isAnswer
+        }).ToList()
+      }).ToList()
     };
-
-    List<Question> questions = quizDTO.Questions.Select(_questionDTO => new Question
-    {
-      QuestionText = _questionDTO.QuestionText,
-      Example = _questionDTO.Example,
-    }).ToList();
-
-    await _quizRepository.SaveChangesAsync();
-
-    return quiz;
+    Console.WriteLine("TIME RECORDED*******" + quiz.CreatedAt);
+    return await _quizRepository.CreateQuiz(quiz);
   }
 
 

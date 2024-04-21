@@ -35,10 +35,8 @@ const SignUpForm = () => {
         }
       );
       const data = await response.data;
-
-      if (response.ok) {
+      if (data.succeeded == true) {
         console.log(data);
-        console;
         localStorage.setItem("user", JSON.stringify(dataToSend.Email));
         navigate("/signin");
       }

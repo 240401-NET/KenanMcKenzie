@@ -9,11 +9,11 @@ public class QuizRepository(FreeDbContext context) : IQuizRepository
 {
   private readonly FreeDbContext _context = context;
 
-  public async Task<Quiz> CreateQuiz(Quiz quiz)
+  public async Task<int> CreateQuiz(Quiz quiz)
   {
     await _context.Quizzes.AddAsync(quiz);
     await _context.SaveChangesAsync();
-    return quiz;
+    return quiz.QuizId;
   }
   /*        GET      */
   //all

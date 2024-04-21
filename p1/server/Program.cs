@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using server.Interface;
 using server.Repository;
 using server.Service;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
         });
 
 builder.Services.AddAuthorization();
+
 var connectionString = builder.Configuration["DBConnectionString:"];
 Console.WriteLine("connstring: " + connectionString);
 builder.Services.AddDbContext<FreeDbContext>(x => x.UseSqlServer(connectionString));

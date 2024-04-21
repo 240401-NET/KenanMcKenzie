@@ -16,6 +16,7 @@ const NavBar = () => {
     // console.log(data.);
     if (response.status === 200) {
       localStorage.removeItem("user");
+      localStorage.removeItem("userInfo");
       navigate("/");
     } else {
       console.error(data.message);

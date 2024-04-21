@@ -71,14 +71,15 @@ public class QuizController : ControllerBase //ControllerBase is for controllers
   [HttpPost]
   public async Task<IActionResult> CreateQuiz([FromBody] QuizDTO quiz)
   {
-    var created = _quizService.CreateQuiz(quiz);
-    if (created.IsCompletedSuccessfully)
+    try
     {
-      return Ok("Quiz created");
+      var quizId = await _quizService.CreateQuiz(quiz);
+      return Ok(new { QuizId = quizId });
     }
-    else
+    catch (Exception ex)
     {
-      return BadRequest("Quiz not created");
+      Console.WriteLine("Error: " + ex.Message);
+      return BadRequest("An error occurred creating the quiz");
     }
   }
 

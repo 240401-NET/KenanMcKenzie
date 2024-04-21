@@ -57,10 +57,7 @@ const CreateQuizForm = ({ onCreated }) => {
               className="input input-bordered w-full max-w-xs"
             />
           </label>
-          {/*Question*/}
-          <p>{quizTitle}</p>
 
-          {/*Don't display until the end*/}
           <div className="flex w-full justify-center items-center">
             <label className="form-control w-full max-w-xs">
               <div className="label">

@@ -4,7 +4,7 @@ namespace server.Interface;
 
 public interface IQuizService
 {
-  Task<Quiz> CreateQuiz(QuizDTO quiz);
+  Task<int> CreateQuiz(QuizDTO quizDTO);
   Task<Quiz> GetQuiz(int id);
   Task<Quiz> DeleteQuiz(int id);
 }

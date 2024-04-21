@@ -22,7 +22,7 @@ public class QuizServiceTests
     }
 
     [Fact]
-    public async Task GetQuiz_ValidId_ReturnsQuiz()
+    public async Task GetQuizByIdReturnsQuiz()
     {
         // Arrange
         int quizId = 1;
@@ -41,7 +41,7 @@ public class QuizServiceTests
     }
 
     [Fact]
-    public async Task GetQuiz_InvalidId_ThrowsException()
+    public async Task GetQuizWithWrongIdThrowsException()
     {
         // Arrange
         int invalidId = 0;

@@ -12,15 +12,15 @@ const AddQuestionsForm = ({ quizData }) => {
   ]);
   const [example, setExample] = useState("");
   const [questionArray, setQuestionArray] = useState([]);
-  const [username, setUsername] = useState();
+  const [id, setId] = useState();
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     console.log("userInfo: ", userInfo);
-    setUsername(userInfo.name);
+    setId(userInfo.id);
   }, []);
   const navigate = useNavigate();
-
+  /*             submits                */
   const handleAddQuestion = (e) => {
     e.preventDefault();
     const newQuestion = {
@@ -61,15 +61,15 @@ const AddQuestionsForm = ({ quizData }) => {
   const handleSubmitQuiz = async (e) => {
     e.preventDefault();
     handleAppendQuestions();
-    console.log("username: ", username);
+    console.log("username: ", id);
     const formData = {
       Title: quizData.quizTitle,
       Tags: quizData.tagArray,
-      CreatedBy: username,
+      CreatedBy: id,
       Description: quizData.description,
       Questions: quizData.questions,
     };
-    console.log(formData.Description);
+    console.log(typeof formData.CreatedBy);
     const response = await axios.post("api/quiz", JSON.stringify(formData), {
       withCredentials: true,
       headers: {

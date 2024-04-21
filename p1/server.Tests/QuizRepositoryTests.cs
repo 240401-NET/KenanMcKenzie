@@ -26,33 +26,35 @@ public class QuizRepositoryTests
   [InlineData("Tag1")]
   public async Task GetQuizByTagReturnsQuizzesWithMatchingTag(string tagName)
   {
-    // Arrange
+    // 
     var data = new List<Quiz>
         {
             new Quiz { QuizId = 1, Title = "Quiz1", Tags = new List<Tag> { new Tag { TagName = "tag1" } } },
             new Quiz { QuizId = 2, Title = "Quiz2", Tags = new List<Tag> { new Tag { TagName = "tag2" } } }
         };
     Mock<IQuizRepository> repoMock = new Mock<IQuizRepository>();
-
+    //
     repoMock.Setup(repo => repo.GetQuizByTag(tagName))
     .Returns(Task.FromResult(data.Where(q => q.Tags.Any(t =>
+    //
     t.TagName.Equals(tagName, StringComparison.OrdinalIgnoreCase))).ToList()));
   }
 
   [Theory]
-  [InlineData(1, true)]  // ID 1 exists
-  [InlineData(2, false)] // ID 2 does not exist
-  public async Task GetQuiz_FetchesQuizBasedOnId(int quizId, bool shouldExist)
+  [InlineData(1, true)]
+  [InlineData(2, false)]
+  public async Task GetQuizGetsQuizById(int quizId, bool shouldExist)
   {
+    //
     var quizzes = new List<Quiz>
         {
             new Quiz { QuizId = 1, Title = "Quiz1" }
         };
 
     Mock<IQuizRepository> repoMock = new Mock<IQuizRepository>();
-
+    //
     repoMock.Setup(repo => repo.GetQuiz(quizId)).ReturnsAsync(quizzes.FirstOrDefault(q => q.QuizId == quizId));
-
+    //
     if (shouldExist)
     {
       Assert.NotNull(await repoMock.Object.GetQuiz(quizId));
@@ -63,9 +65,8 @@ public class QuizRepositoryTests
     }
   }
 
-
   [Fact]
-  public async Task DeleteQuiz_ExistingId_DeletesQuiz()
+  public async Task DeleteQuizWithExistingId()
   {
     Mock<IQuizRepository> repoMock = new Mock<IQuizRepository>();
     var quiz = new Quiz { QuizId = 1, Title = "Quiz1" };
@@ -75,9 +76,4 @@ public class QuizRepositoryTests
 
     Assert.Equal(quiz, result);
   }
-
-
-
-
-
 }

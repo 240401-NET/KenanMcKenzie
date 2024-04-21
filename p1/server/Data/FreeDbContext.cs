@@ -100,7 +100,7 @@ public partial class FreeDbContext : IdentityDbContext<User>
                     {
                         j.HasKey("QuizId", "TagId").HasName("PK__QuizTag__AAFA8C28895FA0CE");
                         j.ToTable("QuizTag", "quiz_schema");
-                        j.IndexerProperty<int>("QuizId").HasColumnName("quizId");
+                        j.IndexerProperty<int>("QuizId").HasColumnName("quiz_id");
                         j.IndexerProperty<int>("TagId").HasColumnName("tagId");
                     });
         });
