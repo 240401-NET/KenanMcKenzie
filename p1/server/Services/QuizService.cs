@@ -34,13 +34,20 @@ public class QuizService : IQuizService
       CreatedBy = quizDTO.CreatedBy,
       CreatedAt = DateTime.UtcNow,
       UpdatedAt = DateTime.UtcNow,
+      Tags = quizDTO.Tags.Select(t => new Tag
+      {
+        TagName = t
+      }).ToList(),
       Questions = quizDTO.Questions.Select(q => new Question
       {
+        Example = q.Example,
+
         QuestionText = q.QuestionText,
         QuestionOptions = q.Options.Select(opt => new QuestionOption
         {
           OptionText = opt.OptionText,
-          IsAnswer = opt.isAnswer
+          IsAnswer = opt.isAnswer,
+
         }).ToList()
       }).ToList()
     };

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using server.Data;
 using server.Model;
-using server.Service;
 using server.Interface;
 namespace server.Controller;
 
@@ -25,9 +24,9 @@ public class QuizController : ControllerBase //ControllerBase is for controllers
   //get
   //ALL
   [HttpGet]
-  public IActionResult GetAllQuizzesForUser([FromRoute] int id) //controller actions return ActionResults
+  public async Task<IActionResult> GetAllQuizzesForUser() //controller actions return ActionResults
   {
-    var quizzes = _quizRepository.GetQuizzes(id);
+    var quizzes = await _quizRepository.GetQuizzes();
     return Ok(quizzes);
   }
   //ONE

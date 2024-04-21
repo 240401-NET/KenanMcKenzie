@@ -9,11 +9,15 @@ const QuizzesTable = () => {
       try {
         const response = await axios.get("/api/quiz", {
           withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
         const data = await response.data;
-        setQuizzes(data.result);
+        setQuizzes(data);
+        console.log(quizzes);
         localStorage.setItem("quizzes", JSON.stringify(data.result));
-        console.log(data);
+        console.log("data:", data);
       } catch (error) {
         console.error(error);
       }
@@ -26,7 +30,7 @@ const QuizzesTable = () => {
         <div key={quiz.id} className="w-3/4 mx-auto hover:scale-110">
           <div className="mockup-code">
             <pre data-prefix="$">
-              <code>{quiz.name}</code>
+              <code>{quiz.title}</code>
             </pre>
             <pre data-prefix=">" className="text-warning">
               <code>{quiz.description}</code>
@@ -37,7 +41,7 @@ const QuizzesTable = () => {
                 {quiz.tags.length > 0
                   ? quiz.tags.map((tag, index) => (
                       <span key={index}>
-                        {tag}
+                        {tag.tagName}
                         {index < quiz.tags.length - 1 ? ", " : ""}
                       </span>
                     ))

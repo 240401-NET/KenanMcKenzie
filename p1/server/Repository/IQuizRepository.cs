@@ -7,7 +7,7 @@ namespace server.Interface;
 public interface IQuizRepository
 {
   Task<int> CreateQuiz(Quiz quiz);
-  Task<List<Quiz>> GetQuizzes(int userId);
+  Task<List<Quiz>> GetQuizzes();
   Task<Quiz> GetQuiz(int id);
   Task<List<Quiz>> GetQuizByTag(string tagName);
   Task<Quiz> DeleteQuiz(int id);

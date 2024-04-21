@@ -17,9 +17,16 @@ public class QuizRepository(FreeDbContext context) : IQuizRepository
   }
   /*        GET      */
   //all
-  public async Task<List<Quiz>> GetQuizzes(int userId)
+  public async Task<List<Quiz>> GetQuizzes()
   {
-    return _context.Quizzes.ToList();
+
+    var quizzes = _context.Quizzes
+    .Include(u => u.CreatedByNavigation)
+    .Include(q => q.Tags)
+    .Include(q => q.Questions)
+    .ThenInclude(q => q.QuestionOptions);
+    return await quizzes.ToListAsync();
+
   }
 
   //one

@@ -19,7 +19,6 @@ const UserQuizzes = () => {
       .then((data) => {
         localStorage.setItem("user", data.user.email);
         localStorage.setItem("userInfo", JSON.stringify(data.user));
-        console.log(data.user);
         setUserData(data.user);
       })
       .catch((err) => {
