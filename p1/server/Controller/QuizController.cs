@@ -37,7 +37,7 @@ public class QuizController : ControllerBase //ControllerBase is for controllers
   }
   //ONE
   [HttpGet("{userId}/{id}")]
-  public IActionResult GetQuizById([FromRoute] int userId, int id)
+  public IActionResult GetQuizById([FromRoute] string userId, int id)
   {
     if (id == 0)
     {
@@ -45,7 +45,7 @@ public class QuizController : ControllerBase //ControllerBase is for controllers
     }
     try
     {
-      var quiz = _quizService.GetQuiz(id);
+      var quiz = _quizService.GetQuiz(userId, id);
       return Ok(quiz);
     }
     catch (Exception e)

@@ -26,6 +26,7 @@ const UserQuizzes = () => {
         localStorage.removeItem("userInfo");
       });
   }, [authenticated]);
+  console.log("Authenticated ", authenticated);
   return (
     <div className="bg-neutral-content max-w-full h-screen">
       {authenticated ? (

@@ -56,7 +56,7 @@ public class QuizService : IQuizService
 
 
 
-  public async Task<Quiz> GetQuiz(int id)
+  public async Task<Quiz> GetQuiz(string userId, int id)
   {
     if (id == 0)
     {

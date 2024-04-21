@@ -1,7 +1,7 @@
-import axios from "axios";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { handleSubmitQuiz, handleAppendQuestions } from "../api/quizService";
 const AddQuestionsForm = ({ quizData }) => {
   const [questionText, setQuestionText] = useState("");
   const [options, setOptions] = useState([
@@ -24,7 +24,6 @@ const AddQuestionsForm = ({ quizData }) => {
   const handleAddQuestion = (e) => {
     e.preventDefault();
     const newQuestion = {
-      // CreatedBy: userInfo.CreatedBy,
       questionText,
       options,
       example,
@@ -52,47 +51,42 @@ const AddQuestionsForm = ({ quizData }) => {
     setExample("");
   };
 
-  const handleAppendQuestions = () => {
-    quizData.questions = questionArray;
-    console.log("quizData: ", quizData);
+  const onSubmitQuiz = (e) => {
+    e.preventDefault();
+    handleAppendQuestions(questionArray, quizData);
+    handleSubmitQuiz(quizData, id, navigate);
   };
 
-  const handleSubmitQuiz = async (e) => {
-    e.preventDefault();
-    handleAppendQuestions();
-    console.log("username: ", id);
-    const formData = {
-      Title: quizData.quizTitle,
-      Tags: quizData.tagArray,
-      CreatedBy: id,
-      Description: quizData.description,
-      Questions: quizData.questions,
-    };
-    console.log(typeof formData.CreatedBy);
-    const response = await axios.post("api/quiz", JSON.stringify(formData), {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
-    const data = await response.data;
-    console.log(data);
-    if (response.ok) {
-      console.log(data);
-      alert("Quiz created successfully");
-      navigate("/user");
-    } else {
-      console.error(data.message);
-      return (
-        <div className="toast toast-top toast-center">
-          <div className="error error-info">
-            <span>Try again.</span>
-          </div>
-        </div>
-      );
-    }
-  };
+  // const handleSubmitQuiz = async (e) => {
+  //   e.preventDefault();
+  //   handleAppendQuestions();
+  //   console.log("username: ", id);
+  //   const formData = {
+  //     Title: quizData.quizTitle,
+  //     Tags: quizData.tagArray,
+  //     CreatedBy: id,
+  //     Description: quizData.description,
+  //     Questions: quizData.questions,
+  //   };
+  //   console.log(typeof formData.CreatedBy);
+  //   const response = await axios.post("api/quiz", JSON.stringify(formData), {
+  //     withCredentials: true,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "application/json",
+  //     },
+  //   });
+  //   const data = await response.data;
+  //   console.log(data);
+  //   if (response.ok) {
+  //     console.log(data);
+  //     alert("Quiz created successfully");
+  //     navigate("/user");
+  //   } else {
+  //     console.error(data.message);
+
+  //   }
+  // };
 
   return (
     <div>
@@ -202,7 +196,7 @@ const AddQuestionsForm = ({ quizData }) => {
           <div className="flex justify-center w-full pt-6">
             <button
               type="button"
-              onClick={handleSubmitQuiz}
+              onClick={onSubmitQuiz}
               className="bg-zinc-600 text-amber-400 border-amber-400 w-48 text-lg hover:bg-amber-400 hover:text-zinc-600 hover:scale-110 hover:border-zinc-600 rounded-lg py-1.5"
             >
               Done
