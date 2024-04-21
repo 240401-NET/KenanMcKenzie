@@ -41,7 +41,6 @@ public class QuizService : IQuizService
       Questions = quizDTO.Questions.Select(q => new Question
       {
         Example = q.Example,
-
         QuestionText = q.QuestionText,
         QuestionOptions = q.Options.Select(opt => new QuestionOption
         {

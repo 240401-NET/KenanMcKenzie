@@ -35,7 +35,6 @@ const AddQuestionsForm = ({ quizData }) => {
       alert("Please select an answer");
       return;
     }
-
     setQuestionArray([...questionArray, newQuestion]);
     handleReset();
 
