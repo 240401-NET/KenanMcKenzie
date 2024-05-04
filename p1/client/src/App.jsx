@@ -9,7 +9,7 @@ import QuizDetails from "./pages/QuizDetails";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/KenanMcKenzie/p1/client">
       <NavBar />
       <Routes>
         <Route path="/" element={<Landing />} />
