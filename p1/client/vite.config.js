@@ -3,10 +3,11 @@ import react from "@vitejs/plugin-react-swc";
 import mkcert from "vite-plugin-mkcert";
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/KenanMcKenzie/p1/client/",
   plugins: [react(), mkcert()],
   server: {
     proxy: {
-      "^/api": "/KenanMcKenzie/p1/client",
+      "^/api": "http://localhost:5232",
     },
     port: 5173,
   },
