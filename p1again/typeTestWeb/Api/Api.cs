@@ -1,6 +1,6 @@
 namespace typeTestWeb;
 
-class Api
+public class Api
 {
   private readonly HttpClient httpClient;
   public Api(HttpClient http)

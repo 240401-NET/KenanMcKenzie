@@ -1,13 +1,13 @@
+namespace typeTestWeb;
+using System;
 using System.Diagnostics;
+using typeTestWeb.Controller;
 
-namespace typeTest;
-
-public class Logic
+using System.Console;
+public class GameFlow
 {
-  private static int numCorrect;
-  private static int numIncorrect;
-  private static List<Game> completedGames = new();
-
+  public static int numCorrect;
+  public static int numIncorrect;
   public static void HandleMenuCmdInput()
   {
     ConsoleKeyInfo key = Console.ReadKey(true);
@@ -24,7 +24,8 @@ public class Logic
     }
     else if (keyPressed == ConsoleKey.L)
     {
-      Leaderboard.DisplayLeaderboard(completedGames);
+      var leaderboardController = new LeaderboardController();
+      DisplayLeaderboard.PrintLeaderboard();
       if (keyPressed == ConsoleKey.Enter)
       {
         Console.Clear();
@@ -32,7 +33,6 @@ public class Logic
       }
     }
   }
-
   public static void Run()
   {
     var timer = new Stopwatch();
@@ -119,7 +119,6 @@ public class Logic
     double accuracy = CalculateAccuracy(numCorrect, numIncorrect);
     double wordsPerMinute = CalculateWPM(minutes);
     double adjusted = CalculateAWPM(minutes);
-
     Console.WriteLine("** Accuracy: " + accuracy * 100 + "% **");
     Console.WriteLine("** Words Per Minute: " + wordsPerMinute + " **");
     Console.WriteLine("** Adjusted Words Per Minute: " + adjusted + " **");

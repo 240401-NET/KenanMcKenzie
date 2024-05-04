@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using typeTestWeb;
 using typeTestWeb.Interface;
 using typeTestWeb.Models;
 using typeTestWeb.Repository;
@@ -11,6 +12,9 @@ builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<ILeaderboardRepository, LeaderboardRepository>();
 builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient();
+builder.Services.AddControllers();
+builder.Services.AddTransient<Api>();
 
 builder.Services.AddCors((options) =>
 {

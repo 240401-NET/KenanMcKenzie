@@ -75,5 +75,26 @@
     "AWPM": 86,
     "Accuracy": 98,
     "Date": "2024-04-08"
+  },
+  {
+    "Initials": "cba",
+    "WPM": 60,
+    "AWPM": 56,
+    "Accuracy": 94,
+    "Date": "2024-04-08"
+  },
+  {
+    "Initials": "kwm",
+    "WPM": 51,
+    "AWPM": 48,
+    "Accuracy": 94,
+    "Date": "2024-04-08"
+  },
+  {
+    "Initials": "KWM",
+    "WPM": 22,
+    "AWPM": 21,
+    "Accuracy": 94,
+    "Date": "2024-05-02"
   }
 ]

@@ -22,6 +22,7 @@ public class LogicTests
     var result = Logic.CalculateWPM(1.55);
     Assert.Equal(typeof(double), result.GetType());
   }
+
   [Theory]
   [InlineData(0.00)]
   [InlineData(0.01)]

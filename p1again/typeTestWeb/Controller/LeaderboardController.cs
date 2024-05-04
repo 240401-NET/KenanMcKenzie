@@ -17,12 +17,13 @@ public class LeaderboardController : ControllerBase
   {
     return Ok(_leaderboardRepository.GetLeaderboard());
   }
+
   [HttpGet("{gameId}")]
   public async Task<IActionResult> GetGameById(int gameId)
   {
     try
     {
-      var game = _leaderboardRepository.(gameId);
+      var game = _leaderboardRepository.GetGameById(gameId);
       return Ok(game);
     }
     catch (Exception e)

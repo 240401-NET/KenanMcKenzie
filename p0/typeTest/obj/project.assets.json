@@ -45,11 +45,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Owner\\Desktop\\revature_c#\\KenanMcKenzie\\p0\\typeTest\\typeTest.csproj",
+      "projectUniqueName": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMcKenzie\\p0\\typeTest\\typeTest.csproj",
       "projectName": "typeTest",
-      "projectPath": "C:\\Users\\Owner\\Desktop\\revature_c#\\KenanMcKenzie\\p0\\typeTest\\typeTest.csproj",
+      "projectPath": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMcKenzie\\p0\\typeTest\\typeTest.csproj",
       "packagesPath": "C:\\Users\\Owner\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Owner\\Desktop\\revature_c#\\KenanMcKenzie\\p0\\typeTest\\obj\\",
+      "outputPath": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMcKenzie\\p0\\typeTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Owner\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "v/L0YX0vqU13g7a7tiz/JLTno1lNGWp4PB4TPBYz0EdvLO+V6FkonAEEo4dpA9U94trDJ9MeJQ2++idjoSUwBw==",
+  "dgSpecHash": "7tdw5rEC/vK31jFDv8gO5LaWHcdk0YGrc0cJg1k0Z5y1LvOJqwkxBW4d59iShS0S0bU8ycOZWw8HCeItCu9C7A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMcKenzie\\p1again\\typeTestWeb\\typeTestWeb.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Owner\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Owner\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
+    "C:\\Users\\Owner\\.nuget\\packages\\consoletables\\2.6.1\\consoletables.2.6.1.nupkg.sha512",
     "C:\\Users\\Owner\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Owner\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.4\\microsoft.aspnetcore.cryptography.internal.8.0.4.nupkg.sha512",
     "C:\\Users\\Owner\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\8.0.4\\microsoft.aspnetcore.cryptography.keyderivation.8.0.4.nupkg.sha512",

@@ -20,6 +20,8 @@
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="ConsoleTables" Version="2.6.1" />
+
   </ItemGroup>
 
 </Project>
