@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react(), mkcert()],
   server: {
     proxy: {
-      "^/api": "http://localhost:5232",
+      "^/api": "/KenanMcKenzie/p1/client",
     },
     port: 5173,
   },

@@ -1,31 +1,35 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
 const QuizDetails = () => {
-  const { userId, id } = useParams();
-  const [quiz, setQuiz] = useState(null);
-
-  useEffect(() => {
-    const fetchQuiz = async (id) => {
-      try {
-        const response = await axios.get(`/api/quiz/${userId}/${id}`, {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const data = await response.data;
-        setQuiz(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchQuiz(id);
-  }, [id]);
+  const { state } = useLocation();
+  const quiz = state?.quiz;
+  console.log("quiz", typeof quiz);
   return (
     <div>
-      <Header title={quiz?.title} />
+      <Header title={quiz.title} />
+      <h2>Quiz Details</h2>
+      <div>Description: {quiz.description}</div>
+      <div>Created By: {quiz.createdByNavigation?.name}</div>
+      <h3>Questions:</h3>
+      {quiz.questions?.map((question) => (
+        <div key={question.questionId}>
+          <h4>{question.questionText}</h4>
+          <p>Example: {question.example}</p>
+          <ul>
+            {question.questionOptions.map((option) => (
+              <li key={option.optionId}>
+                {option.optionText} {option.isAnswer ? "(Correct)" : ""}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <h3>Tags:</h3>
+      <ul>
+        {quiz.tags.map((tag) => (
+          <li key={tag.tagId}>{tag.tagName}</li>
+        ))}
+      </ul>
     </div>
   );
 };

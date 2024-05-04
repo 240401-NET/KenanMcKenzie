@@ -1,7 +1,7 @@
 import axios from "axios";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const QuizzesTable = ({ userId }) => {
   const [quizzes, setQuizzes] = useState([]);
@@ -24,14 +24,20 @@ const QuizzesTable = ({ userId }) => {
     fetchQuizzes(userId);
   }, [userId]);
 
-  const history = useHistory();
+  const handleSetQuiz = (quiz) => {
+    console.log("quiz", quiz);
+    navigate("/quiz-details", { state: { quiz } });
+  };
+  // const handleNavigation = (quizId) => {
+  //   console.log("quizId", quizId);
+  //   navigate(`/quiz/${userId}/${quizId}`);
+  // };
+  console.log(quizzes);
+  const navigate = useNavigate();
   return (
     <div className="grid grid-cols-3 gap-8">
       {quizzes.map((quiz) => (
-        <div
-          key={quiz.id}
-          onClick={() => history.push(`/quiz/${userId}/${quiz.id}`)}
-        >
+        <div key={quiz.quizId} onClick={() => handleSetQuiz(quiz)}>
           <div className="w-3/4 mx-auto hover:scale-110">
             <div className="mockup-code">
               <pre data-prefix="$">

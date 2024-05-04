@@ -8,7 +8,7 @@ public interface IQuizRepository
 {
   Task<int> CreateQuiz(Quiz quiz);
   Task<List<Quiz>> GetQuizzes();
-  Task<Quiz> GetQuiz(int id);
+  Task<Quiz> GetQuiz(string userId, int id);
   Task<List<Quiz>> GetQuizByTag(string tagName);
   Task<Quiz> DeleteQuiz(int id);
   Task<Quiz> AddQuiz(Quiz quiz);

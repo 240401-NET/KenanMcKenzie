@@ -62,7 +62,7 @@ public class QuizService : IQuizService
     {
       throw new Exception("Invalid id");
     }
-    return await _quizRepository.GetQuiz(id);
+    return await _quizRepository.GetQuiz(userId, id);
   }
 
   ///////

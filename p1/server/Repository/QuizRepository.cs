@@ -40,9 +40,10 @@ public class QuizRepository(FreeDbContext context) : IQuizRepository
   }
 
   //one
-  public async Task<Quiz> GetQuiz(int id)
+  public async Task<Quiz> GetQuiz(string userId, int id)
   {
-    return await _context.Quizzes.FirstOrDefaultAsync(q => q.QuizId == id) ?? throw new Exception("Quiz not found");
+    return await _context.Quizzes.FirstOrDefaultAsync(q => q.QuizId == id)
+     ?? throw new Exception("Quiz not found");
   }
 
   public async Task<List<Quiz>> GetQuizByTag(string tagName)

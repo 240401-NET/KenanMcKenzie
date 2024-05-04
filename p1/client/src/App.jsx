@@ -5,6 +5,7 @@ import UserQuizzes from "./pages/UserQuizzes";
 import CreateQuiz from "./pages/CreateQuiz";
 import SignUpForm from "./components/SignUpForm";
 import SignInForm from "./components/SignInForm";
+import QuizDetails from "./pages/QuizDetails";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/signin" element={<SignInForm />} />
         <Route path="/signup" element={<SignUpForm />} />
         <Route path="/create" element={<CreateQuiz />} />
+        <Route path="/quiz-details" element={<QuizDetails />} />
       </Routes>
     </Router>
   );
