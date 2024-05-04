@@ -5,17 +5,25 @@ on:
     branches:
       - main 
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - run: npm install
-      - run: npm run build  
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUBTOKEN }}
-          publish_dir: ./p1/client/dist  
+      jobs:
+        deploy:
+          runs-on: ubuntu-latest
+          steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v2
+              with:
+                node-version: '14'  # Ensure this is the correct Node.js version for your project
+            - name: Install Dependencies
+              run: |
+                cd p1/client
+                npm install
+            - name: Build
+              run: |
+                cd p1/client
+                npm run build
+            - name: Deploy
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                github_token: ${{ secrets.GITHUBTOKEN }}
+                publish_dir: ./p1/client/dist
+      
