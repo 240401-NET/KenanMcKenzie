@@ -1028,11 +1028,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Owner\\Desktop\\revature_c#\\KenanMcKenzie\\p0\\typeTestTests\\typeTestTests.csproj",
+      "projectUniqueName": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMcKenzie\\p0\\typeTestTests\\typeTestTests.csproj",
       "projectName": "typeTestTests",
-      "projectPath": "C:\\Users\\Owner\\Desktop\\revature_c#\\KenanMcKenzie\\p0\\typeTestTests\\typeTestTests.csproj",
+      "projectPath": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMcKenzie\\p0\\typeTestTests\\typeTestTests.csproj",
       "packagesPath": "C:\\Users\\Owner\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Owner\\Desktop\\revature_c#\\KenanMcKenzie\\p0\\typeTestTests\\obj\\",
+      "outputPath": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMcKenzie\\p0\\typeTestTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Owner\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1047,8 +1047,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Owner\\Desktop\\revature_c#\\KenanMcKenzie\\p0\\typeTest\\typeTest.csproj": {
-              "projectPath": "C:\\Users\\Owner\\Desktop\\revature_c#\\KenanMcKenzie\\p0\\typeTest\\typeTest.csproj"
+            "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMcKenzie\\p0\\typeTest\\typeTest.csproj": {
+              "projectPath": "C:\\Users\\Owner\\Desktop\\revature_csharp\\KenanMcKenzie\\p0\\typeTest\\typeTest.csproj"
             }
           }
         }
